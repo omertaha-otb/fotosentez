@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fotosentez — İnteraktif Kloroplast Laboratuvarı</title>
+<meta name="description" content="Öğrenciler için interaktif fotosentez rehberi: animasyonlu kloroplast sahnesi, Calvin döngüsü ve mini test.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F4E9; --paper2:#EFE8D4; --ink:#17352A; --ink2:#4A6357; --line:#DCD4BC;
+  --green:#2F8B4E; --green-d:#1C5E38; --sun:#E9A13B; --sun-d:#B57414; --red:#D64541;
+  --water:#2E86B8; --calvin:#1E6FA8; --teal:#1C7C74; --card:#FFFDF6; --dark:#14342A;
+  --cream-on-dark:#EDE7D4;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:'Manrope',sans-serif; color:var(--ink); background:var(--paper);
+  background-image:radial-gradient(rgba(23,53,42,.055) 1px, transparent 1.2px);
+  background-size:24px 24px; line-height:1.6;
+}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{scroll-margin-top:84px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.12;margin:0}
+p{margin:0}
+sub{font-size:.62em}
+::selection{background:var(--sun);color:var(--ink)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(248,244,233,.92);
+  backdrop-filter:blur(8px);border-bottom:2px solid var(--ink);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:900;font-size:20px;letter-spacing:.2px;text-decoration:none;color:var(--ink)}
+.brand svg{flex:none}
+.nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  text-decoration:none;color:var(--ink2);font-weight:700;font-size:14px;white-space:nowrap;
+  padding:8px 12px;border-radius:999px;border:2px solid transparent;transition:.15s;
+}
+.nav-links a:hover{color:var(--ink);border-color:var(--ink)}
+.nav-links a.active{background:var(--ink);color:var(--paper)}
+
+/* ---------- Butonlar ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:var(--ink);
+  background:var(--card);border:2px solid var(--ink);border-radius:12px;
+  padding:11px 18px;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s;
+  text-decoration:none;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.primary{background:var(--sun)}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn.ghost{box-shadow:none;border-color:transparent;text-decoration:underline;text-underline-offset:4px}
+.btn.ghost:hover{transform:none;border-color:var(--ink)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:72px 0 40px;overflow:hidden}
+.kicker{
+  font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.22em;
+  color:var(--green-d);text-transform:uppercase;display:flex;align-items:center;gap:10px;
+}
+.kicker::before{content:"";width:34px;height:2px;background:var(--green-d)}
+.hero h1{font-size:clamp(52px,9vw,110px);font-weight:900;letter-spacing:-.01em;margin:14px 0 6px}
+.hero h1 em{font-style:italic;color:var(--green-d)}
+.hero-sub{font-size:clamp(17px,2.2vw,21px);color:var(--ink2);max-width:640px;font-weight:500}
+.hero-cta{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;align-items:center}
+.float-tag{
+  position:absolute;display:flex;align-items:center;gap:8px;
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:14px;
+  background:var(--card);border:2px solid var(--ink);border-radius:999px;
+  padding:7px 14px;box-shadow:3px 3px 0 var(--ink);
+  animation:floaty 5.5s ease-in-out infinite alternate;user-select:none;
+}
+@keyframes floaty{from{transform:translateY(-7px) rotate(-1.5deg)}to{transform:translateY(7px) rotate(1.5deg)}}
+.ft-co2{top:64px;right:9%;color:var(--green-d)}
+.ft-h2o{top:220px;left:3%;color:var(--water);animation-delay:-1.4s}
+.ft-o2{bottom:130px;right:5%;color:var(--red);animation-delay:-2.6s}
+.ft-c6{bottom:70px;left:8%;color:var(--green);animation-delay:-3.8s}
+
+/* Denklem şeridi */
+.eq-strip{
+  margin-top:48px;border:2px solid var(--ink);border-radius:16px;background:var(--card);
+  box-shadow:6px 6px 0 var(--ink);padding:22px 26px;display:flex;flex-wrap:wrap;
+  align-items:center;justify-content:center;gap:14px 18px;
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:clamp(18px,2.6vw,26px);
+}
+.eq-strip .t-co2{color:#5B6770}.eq-strip .t-h2o{color:var(--water)}
+.eq-strip .t-c6{color:var(--green-d)}.eq-strip .t-o2{color:var(--red)}
+.eq-plus{color:var(--ink2)}
+.eq-arrow{display:flex;flex-direction:column;align-items:center;min-width:170px;flex:1}
+.eq-arrow .lbl{
+  font-family:'Manrope',sans-serif;font-size:11px;font-weight:800;letter-spacing:.14em;
+  color:var(--sun-d);margin-bottom:4px;white-space:nowrap;
+}
+.eq-arrow .shaft{position:relative;width:100%;height:3px;background:var(--ink)}
+.eq-arrow .shaft::after{
+  content:"";position:absolute;right:-2px;top:-6px;
+  border-left:12px solid var(--ink);border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;
+}
+.eq-arrow .shaft .flow{
+  position:absolute;top:-2.5px;width:8px;height:8px;border-radius:50%;background:var(--sun);
+  animation:eqflow 1.6s linear infinite;
+}
+.eq-arrow .shaft .flow:nth-child(2){animation-delay:-.8s}
+@keyframes eqflow{from{left:0;opacity:0}25%{opacity:1}to{left:calc(100% - 14px);opacity:0}}
+
+/* ---------- Bölüm başlıkları ---------- */
+.sec{padding:84px 0}
+.sec-head{margin-bottom:36px;max-width:760px}
+.sec-num{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:15px;color:var(--sun-d);
+}
+.sec-head h2{font-size:clamp(32px,4.6vw,52px);font-weight:800;margin-top:8px;letter-spacing:-.01em}
+.sec-head p{margin-top:14px;color:var(--ink2);font-size:17px}
+
+/* ---------- Sahne bölümü ---------- */
+#sahne{border-top:2px solid var(--ink)}
+.scene-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(330px,1fr);gap:28px;align-items:start}
+.scene-wrap{
+  border:2px solid var(--ink);border-radius:18px;background:var(--card);
+  box-shadow:6px 6px 0 var(--ink);padding:14px;overflow:hidden;
+}
+#scene{width:100%;height:auto;display:block;user-select:none}
+#scene text{font-family:'Manrope',sans-serif}
+#scene text.mono{font-family:'IBM Plex Mono',monospace}
+#scene .dimmed{opacity:.13;filter:saturate(.2);transition:opacity .45s,filter .45s}
+#scene [data-g]{transition:opacity .45s,filter .45s}
+#scene [data-click]{cursor:pointer}
+#scene .dimmed:hover{opacity:.4}
+.spin{animation:spin 16s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;padding:0 4px}
+.legend span{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--ink2)}
+.legend i{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);display:inline-block}
+.l-red i{background:var(--red)}.l-sun i{background:var(--sun)}
+.l-teal i{background:var(--teal)}.l-blue i{background:var(--calvin)}
+.l-green i{background:var(--green)}.l-water i{background:var(--water)}
+
+/* Sağ panel */
+.stage-panel{display:flex;flex-direction:column;gap:14px}
+.panel-card{border:2px solid var(--ink);border-radius:16px;background:var(--card);box-shadow:6px 6px 0 var(--ink);padding:18px}
+.panel-title{font-family:'Fraunces',serif;font-weight:800;font-size:20px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.stage-list{display:flex;flex-direction:column;gap:8px}
+.stage-btn{
+  display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:14.5px;color:var(--ink);
+  background:transparent;border:2px solid var(--line);border-radius:11px;padding:9px 12px;
+  transition:.15s;
+}
+.stage-btn .num{
+  flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--ink);
+  display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;
+}
+.stage-btn:hover{border-color:var(--ink);transform:translateX(3px)}
+.stage-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.stage-btn.active .num{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.play-row{display:flex;gap:10px;margin-top:12px}
+.play-row .btn{flex:1;justify-content:center;padding:10px 14px}
+#stageInfo h4{font-family:'Fraunces',serif;font-size:21px;font-weight:800;margin:0 0 10px}
+#stageInfo p{font-size:14.5px;color:var(--ink2);font-weight:500}
+#stageInfo ul{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+#stageInfo li{font-size:13.5px;font-weight:600;display:flex;gap:8px;align-items:flex-start}
+#stageInfo li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--sun);border:1.5px solid var(--ink);margin-top:6px}
+.eq-chip{
+  margin-top:14px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;
+  background:var(--paper2);border:2px dashed var(--ink2);border-radius:10px;padding:9px 12px;color:var(--ink);
+}
+.panel-hint{font-size:12.5px;font-weight:600;color:var(--ink2);text-align:center}
+
+/* ---------- Denklem bölümü ---------- */
+#denklem{background:var(--paper2);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.chip{
+  border:2px solid var(--ink);border-radius:14px;background:var(--card);cursor:pointer;
+  padding:16px 18px;min-width:180px;box-shadow:4px 4px 0 var(--ink);transition:.15s;text-align:center;
+}
+.chip:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chip .formula{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:22px;display:block}
+.chip .mol{display:block;margin:10px auto 2px}
+.chip:hover .mol{animation:bounce .6s ease}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+.chip-note{
+  flex-basis:100%;max-width:680px;margin:0 auto;overflow:hidden;max-height:0;
+  transition:max-height .4s ease;background:var(--card);border:2px solid var(--ink);
+  border-radius:12px;
+}
+.chip-note.open{max-height:160px;margin-top:6px}
+.chip-note p{padding:14px 18px;font-size:14.5px;font-weight:600;color:var(--ink2)}
+.chip-note b{color:var(--ink)}
+
+/* ---------- Karşılaştırma (koyu) ---------- */
+#karsilastirma{background:var(--dark);color:var(--cream-on-dark);border-top:2px solid var(--ink)}
+#karsilastirma .sec-num,#karsilastirma .sec-head p{color:#A8B5A6}
+.cmp{display:flex;flex-direction:column;gap:0;border:2px solid rgba(237,231,212,.35);border-radius:18px;overflow:hidden}
+.cmp-heads{display:grid;grid-template-columns:1fr 150px 1fr}
+.cmp-h{
+  padding:22px;display:flex;align-items:center;gap:14px;font-family:'Fraunces',serif;
+  font-weight:800;font-size:clamp(17px,2.2vw,23px);line-height:1.25;
+}
+.cmp-h.left{background:#1E5B36;border-right:2px solid rgba(237,231,212,.35)}
+.cmp-h.right{background:#14507E}
+.cmp-h .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--sun);display:grid;place-items:center;border:2px solid var(--cream-on-dark)}
+.cmp-row{display:grid;grid-template-columns:1fr 150px 1fr;border-top:1px solid rgba(237,231,212,.22)}
+.cmp-cell{padding:16px 22px;font-size:15px;font-weight:600}
+.cmp-cell.left{border-right:1px solid rgba(237,231,212,.22)}
+.cmp-cell b{color:var(--sun)}
+.cmp-tag{
+  display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.18em;color:#C9C2A8;border-right:1px solid rgba(237,231,212,.22);
+  border-left:1px solid rgba(237,231,212,.22);background:rgba(237,231,212,.06);
+}
+.cmp-note{
+  margin-top:22px;display:flex;align-items:center;justify-content:center;gap:12px;
+  font-weight:700;color:var(--sun);text-align:center;font-size:15px;
+}
+
+/* ---------- Calvin ---------- */
+#calvin{border-top:2px solid var(--ink)}
+.calvin-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,1fr);gap:32px;align-items:center}
+.calvin-wrap{border:2px solid var(--ink);border-radius:18px;background:var(--card);box-shadow:6px 6px 0 var(--ink);padding:14px}
+#calvinWheel{width:100%;height:auto;display:block}
+#calvinWheel text{font-family:'Manrope',sans-serif}
+#calvinWheel text.mono{font-family:'IBM Plex Mono',monospace}
+.arc{transition:stroke .3s,stroke-width .3s}
+.arc.active{stroke:var(--sun)!important;stroke-width:18!important}
+.node circle{transition:fill .3s}
+.node.active circle{fill:var(--sun)!important}
+.step-card h3{font-size:26px;font-weight:800;margin-bottom:10px}
+.step-card p{color:var(--ink2);font-size:15.5px;font-weight:500}
+.step-count{
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.14em;
+  color:var(--calvin);display:inline-block;margin-bottom:8px;
+}
+.step-btns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.calvin-note{
+  margin-top:16px;font-size:13.5px;font-weight:700;color:var(--green-d);
+  border-top:2px dashed var(--line);padding-top:12px;display:flex;gap:8px;align-items:center;
+}
+
+/* ---------- Quiz ---------- */
+#quiz{background:var(--paper2);border-top:2px solid var(--ink)}
+.quiz-box{
+  max-width:720px;margin:0 auto;border:2px solid var(--ink);border-radius:18px;
+  background:var(--card);box-shadow:6px 6px 0 var(--ink);padding:30px;
+}
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.quiz-count{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--ink2)}
+.quiz-dots{display:flex;gap:7px}
+.qdot{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink);background:transparent;transition:.2s}
+.qdot.done-ok{background:var(--green)}
+.qdot.done-no{background:var(--red)}
+.qdot.now{background:var(--sun)}
+.quiz-q{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(19px,2.6vw,24px);margin:16px 0 20px;line-height:1.3}
+.quiz-opts{display:flex;flex-direction:column;gap:10px}
+.qopt{
+  display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;
+  background:transparent;border:2px solid var(--ink);border-radius:12px;padding:12px 14px;
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:15px;color:var(--ink);transition:.15s;
+}
+.qopt .abc{
+  flex:none;width:28px;height:28px;border-radius:8px;border:2px solid var(--ink);
+  display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;
+}
+.qopt:hover:not(:disabled){transform:translateX(4px);background:var(--paper2)}
+.qopt:disabled{cursor:default}
+.qopt.correct{background:#DFF0E2;border-color:var(--green-d);color:var(--green-d)}
+.qopt.correct .abc{background:var(--green);border-color:var(--green-d);color:#fff}
+.qopt.wrong{background:#F9E3E2;border-color:var(--red);color:#9C2B28}
+.qopt.wrong .abc{background:var(--red);border-color:#9C2B28;color:#fff}
+.qopt.faded{opacity:.45}
+.quiz-why{
+  margin-top:16px;border:2px dashed var(--ink2);border-radius:12px;background:var(--paper);
+  padding:13px 16px;font-size:14px;font-weight:600;color:var(--ink2);display:none;
+}
+.quiz-why.show{display:block;animation:fadeUp .35s ease}
+.quiz-next{margin-top:18px;display:none;justify-content:flex-end}
+.quiz-next.show{display:flex;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.quiz-result{text-align:center;padding:10px 0}
+.ring-wrap{position:relative;width:150px;height:150px;margin:8px auto 16px}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-num{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Fraunces',serif;font-weight:900;font-size:40px;
+}
+.ring-num small{font-size:16px;font-weight:600;color:var(--ink2)}
+.quiz-result h3{font-size:28px;margin-bottom:8px}
+.quiz-result p{color:var(--ink2);font-weight:600;max-width:440px;margin:0 auto 20px}
+
+/* ---------- Footer ---------- */
+footer{background:var(--dark);color:var(--cream-on-dark);border-top:2px solid var(--ink);padding:44px 0}
+.foot-eq{
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:clamp(15px,2.4vw,20px);
+  text-align:center;margin-bottom:18px;
+}
+.foot-eq .t-c6{color:#8FD3A8}.foot-eq .t-o2{color:#F0908C}
+footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-width:560px;margin:0 auto}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .scene-grid,.calvin-grid{grid-template-columns:1fr}
+  .float-tag{display:none}
+  .cmp-heads,.cmp-row{grid-template-columns:1fr}
+  .cmp-tag{border:none;border-top:1px solid rgba(237,231,212,.22);padding:8px;background:rgba(237,231,212,.1)}
+  .cmp-h.left{border-right:none;border-bottom:2px solid rgba(237,231,212,.35)}
+  .cmp-cell.left{border-right:none}
+  .sec{padding:60px 0}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="container nav-in">
+    <a class="brand" href="#top">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 17 4 10C4 6 7 3 12 3C17 3 20 6 20 10C20 17 12 21 12 21Z" fill="#2F8B4E" stroke="#17352A" stroke-width="1.8"/><path d="M12 21V8" stroke="#17352A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Fotosentez Lab
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#sahne">Canlı Sahne</a>
+      <a href="#denklem">Denklem</a>
+      <a href="#karsilastirma">Karşılaştırma</a>
+      <a href="#calvin">Calvin Döngüsü</a>
+      <a href="#quiz">Mini Test</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container" style="position:relative">
+    <div class="kicker">Biyoloji • Hücrede Enerji</div>
+    <h1>Foto<em>sentez</em></h1>
+    <p class="hero-sub">Işık enerjisi bir yaprağın içinde nasıl şekere dönüşür? Kloroplastın kapılarını aç, reaksiyonları adım adım canlı izle.</p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#sahne">Sahneyi Keşfet
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="btn" href="#quiz">Hemen Test Çöz</a>
+    </div>
+
+    <div class="eq-strip reveal">
+      <span class="t-co2">6 CO<sub>2</sub></span><span class="eq-plus">+</span>
+      <span class="t-h2o">6 H<sub>2</sub>O</span>
+      <div class="eq-arrow">
+        <span class="lbl">IŞIK ENERJİSİ + KLOROFİL</span>
+        <div class="shaft"><span class="flow"></span><span class="flow"></span></div>
+      </div>
+      <span class="t-c6">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></span><span class="eq-plus">+</span>
+      <span class="t-o2">6 O<sub>2</sub></span>
+    </div>
+
+    <span class="float-tag ft-co2"><svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>CO₂</span>
+    <span class="float-tag ft-h2o"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0C18 10.5 12 3 12 3Z" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>H₂O</span>
+    <span class="float-tag ft-o2"><svg width="15" height="15" viewBox="0 0 24 24"><circle cx="8" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>O₂</span>
+    <span class="float-tag ft-c6"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9L12 3Z" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>C₆H₁₂O₆</span>
+  </div>
+</section>
+
+<!-- ================= SAHNE ================= -->
+<section class="sec" id="sahne">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">01 — Canlı Sahne</div>
+      <h2>Kloroplastı çalıştır</h2>
+      <p>Aşamalara tıkla ya da <b>Oynat</a></b>'a bas; sahne her adımda ilgili parçayı öne çıkarır. İpucu: sahnedeki grana, yıldız ve döngüye doğrudan da tıklayabilirsin.</p>
+    </div>
+
+    <div class="scene-grid">
+      <div>
+        <div class="scene-wrap reveal">
+          <svg id="scene" viewBox="0 0 1040 680" role="img" aria-label="Kloroplastta fotosentez şeması">
+            <defs>
+              <marker id="mRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#D64541"/></marker>
+              <marker id="mGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4C8C3F"/></marker>
+              <marker id="mSun" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E9A13B"/></marker>
+              <marker id="mBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1E6FA8"/></marker>
+              <marker id="mTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1C7C74"/></marker>
+              <marker id="mGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B7F77"/></marker>
+            </defs>
+
+            <!-- Kloroplast zarları (hep görünür) -->
+            <g>
+              <ellipse cx="520" cy="340" rx="406" ry="286" fill="none" stroke="#17352A" stroke-width="2.5"/>
+              <ellipse cx="520" cy="340" rx="400" ry="280" fill="#C6E7EF" stroke="#2AA7C4" stroke-width="10"/>
+              <ellipse cx="520" cy="340" rx="384" ry="264" fill="#F3F7E6" stroke="#2AA7C4" stroke-width="3"/>
+            </g>
+
+            <!-- IŞIK -->
+            <g data-g="s1" data-click="1">
+              <text x="40" y="214" font-size="18" font-weight="800" fill="#D64541" letter-spacing="2">IŞIK</text>
+              <path d="M14,232 L182,286" stroke="#D64541" stroke-width="7" stroke-linecap="round" marker-end="url(#mRed)"/>
+              <path d="M12,316 L180,318" stroke="#D64541" stroke-width="7" stroke-linecap="round" marker-end="url(#mRed)"/>
+              <path d="M14,400 L182,352" stroke="#D64541" stroke-width="7" stroke-linecap="round" marker-end="url(#mRed)"/>
+              <circle r="5" fill="#F2C14E" stroke="#D64541" stroke-width="1.5"><animateMotion dur="1.5s" begin="-0.2s" repeatCount="indefinite" path="M14,232 L182,286"/></circle>
+              <circle r="5" fill="#F2C14E" stroke="#D64541" stroke-width="1.5"><animateMotion dur="1.5s" begin="-0.7s" repeatCount="indefinite" path="M12,316 L180,318"/></circle>
+              <circle r="5" fill="#F2C14E" stroke="#D64541" stroke-width="1.5"><animateMotion dur="1.5s" begin="-1.2s" repeatCount="indefinite" path="M14,400 L182,352"/></circle>
+              <rect x="6" y="196" width="190" height="220" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- H2O girişi -->
+            <g data-g="s2" data-click="2">
+              <text x="252" y="52" text-anchor="middle" class="mono" font-size="22" font-weight="700" fill="#17352A">H<tspan dy="6" font-size="14">2</tspan><tspan dy="-6">O</tspan></text>
+              <path d="M252,78 L252,148" stroke="#D64541" stroke-width="7" stroke-linecap="round" marker-end="url(#mRed)"/>
+              <path d="M0,-8 C3,-3 6,1 6,4.5 A6,6 0 1 1 -6,4.5 C-6,1 -3,-3 0,-8 z" fill="#2E86B8">
+                <animateMotion dur="1.5s" begin="0s" repeatCount="indefinite" path="M252,84 L252,144"/>
+              </path>
+              <path d="M0,-8 C3,-3 6,1 6,4.5 A6,6 0 1 1 -6,4.5 C-6,1 -3,-3 0,-8 z" fill="#2E86B8">
+                <animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M252,84 L252,144"/>
+              </path>
+              <path d="M0,-8 C3,-3 6,1 6,4.5 A6,6 0 1 1 -6,4.5 C-6,1 -3,-3 0,-8 z" fill="#2E86B8">
+                <animateMotion dur="1.5s" begin="-1s" repeatCount="indefinite" path="M252,84 L252,144"/>
+              </path>
+              <rect x="214" y="36" width="76" height="120" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- O2 çıkışı -->
+            <g data-g="s2" data-click="2">
+              <path d="M252,438 L252,556" stroke="#D64541" stroke-width="7" stroke-linecap="round" marker-end="url(#mRed)"/>
+              <text x="252" y="602" text-anchor="middle" class="mono" font-size="22" font-weight="700" fill="#17352A">O<tspan dy="6" font-size="14">2</tspan></text>
+              <circle r="5" fill="#FFFFFF" stroke="#8FB8C9" stroke-width="1.6"><animateMotion dur="1.9s" begin="0s" repeatCount="indefinite" path="M252,444 L252,552"/></circle>
+              <circle r="5" fill="#FFFFFF" stroke="#8FB8C9" stroke-width="1.6"><animateMotion dur="1.9s" begin="-0.65s" repeatCount="indefinite" path="M252,444 L252,552"/></circle>
+              <circle r="5" fill="#FFFFFF" stroke="#8FB8C9" stroke-width="1.6"><animateMotion dur="1.9s" begin="-1.3s" repeatCount="indefinite" path="M252,444 L252,552"/></circle>
+              <rect x="214" y="432" width="76" height="184" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- GRANA -->
+            <g data-g="s1 s2" data-click="2">
+              <ellipse cx="252" cy="232" rx="64" ry="13" fill="#3E9B4F" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="258" rx="64" ry="13" fill="#48A75A" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="284" rx="64" ry="13" fill="#3E9B4F" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="310" rx="64" ry="13" fill="#48A75A" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="336" rx="64" ry="13" fill="#3E9B4F" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="362" rx="64" ry="13" fill="#48A75A" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="388" rx="64" ry="13" fill="#3E9B4F" stroke="#1C5E38" stroke-width="2.5"/>
+              <ellipse cx="252" cy="414" rx="64" ry="13" fill="#48A75A" stroke="#1C5E38" stroke-width="2.5"/>
+              <text x="252" y="176" text-anchor="middle" font-size="17" font-weight="800" fill="#1C5E38">Işığa bağlı</text>
+              <text x="252" y="198" text-anchor="middle" font-size="17" font-weight="800" fill="#1C5E38">reaksiyonlar</text>
+              <text x="165" y="342" text-anchor="middle" font-size="15" font-weight="800" fill="#1C5E38" transform="rotate(-90 165 342)">Grana</text>
+              <rect x="182" y="212" width="142" height="218" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- ATP / NADPH taşıyıcıları -->
+            <g data-g="s3" data-click="3">
+              <path d="M322,266 C420,258 505,238 575,258" stroke="#E9A13B" stroke-width="6" fill="none" stroke-linecap="round" marker-end="url(#mSun)"/>
+              <path d="M322,368 C430,394 505,396 570,364" stroke="#1C7C74" stroke-width="6" fill="none" stroke-linecap="round" marker-end="url(#mTeal)"/>
+              <g transform="translate(418,196)">
+                <rect x="-26" y="-26" width="52" height="52" rx="5" fill="#E9A13B" stroke="#B57414" stroke-width="3" stroke-linejoin="round"/>
+                <rect x="-26" y="-26" width="52" height="52" rx="5" fill="#E9A13B" stroke="#B57414" stroke-width="3" stroke-linejoin="round" transform="rotate(45)"/>
+                <text y="6" text-anchor="middle" class="mono" font-size="16" font-weight="700" fill="#17352A">ATP</text>
+              </g>
+              <text x="452" y="418" class="mono" font-size="18" font-weight="700" fill="#1C7C74">NADPH</text>
+              <circle r="5" fill="#E9A13B" stroke="#B57414" stroke-width="1.4"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" path="M322,266 C420,258 505,238 575,258"/></circle>
+              <circle r="5" fill="#E9A13B" stroke="#B57414" stroke-width="1.4"><animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M322,266 C420,258 505,238 575,258"/></circle>
+              <circle r="5" fill="#1C7C74"><animateMotion dur="3s" begin="-0.5s" repeatCount="indefinite" path="M322,368 C430,394 505,396 570,364"/></circle>
+              <circle r="5" fill="#1C7C74"><animateMotion dur="3s" begin="-2s" repeatCount="indefinite" path="M322,368 C430,394 505,396 570,364"/></circle>
+              <rect x="316" y="166" width="272" height="262" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- Geri dönüşler: ADP + Pi ve NADP+ -->
+            <g data-g="s3" data-click="3">
+              <path d="M600,455 C490,506 405,500 330,446" stroke="#6B7F77" stroke-width="5" fill="none" stroke-linecap="round" marker-end="url(#mGray)"/>
+              <text x="455" y="522" class="mono" font-size="17" font-weight="700" fill="#55655E">NADP<tspan dy="-7" font-size="12">+</tspan></text>
+              <circle r="4.5" fill="#6B7F77"><animateMotion dur="3.2s" begin="0s" repeatCount="indefinite" path="M600,455 C490,506 405,500 330,446"/></circle>
+              <circle r="4.5" fill="#6B7F77"><animateMotion dur="3.2s" begin="-1.6s" repeatCount="indefinite" path="M600,455 C490,506 405,500 330,446"/></circle>
+
+              <path d="M636,472 C510,552 408,548 322,452" stroke="#1C7C74" stroke-width="6" fill="none" stroke-linecap="round" marker-end="url(#mTeal)"/>
+              <text x="400" y="576" class="mono" font-size="18" font-weight="700" fill="#1C7C74">ADP + P<tspan dy="5" font-size="12">i</tspan></text>
+              <path d="M432,646 L444,624 L486,624 L492,646 z" fill="#1C7C74" stroke="#14544F" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="512" cy="636" r="12" fill="#F2C14E" stroke="#B57414" stroke-width="2"/>
+              <text x="512" y="641" text-anchor="middle" font-size="13" font-weight="800" fill="#17352A">P</text>
+              <circle r="6" fill="#1C7C74"><animateMotion dur="3.6s" begin="-1s" repeatCount="indefinite" path="M636,472 C510,552 408,548 322,452"/></circle>
+              <circle r="6" fill="#1C7C74"><animateMotion dur="3.6s" begin="-2.8s" repeatCount="indefinite" path="M636,472 C510,552 408,548 322,452"/></circle>
+              <rect x="320" y="436" width="330" height="156" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- CALVIN DÖNGÜSÜ -->
+            <g data-g="s4" data-click="4">
+              <path d="M580,330 A120,120 0 0 1 820,330" stroke="#1E6FA8" stroke-width="13" fill="none" stroke-linecap="round" marker-end="url(#mBlue)"/>
+              <path d="M820,330 A120,120 0 0 1 580,330" stroke="#1E6FA8" stroke-width="13" fill="none" stroke-linecap="round" marker-end="url(#mBlue)"/>
+              <circle cx="700" cy="330" r="88" fill="none" stroke="#1E6FA8" stroke-width="2.5" stroke-dasharray="3 15" opacity=".45" class="spin"/>
+              <circle r="4" fill="#1E6FA8" opacity=".75"><animateMotion dur="7s" begin="0s" repeatCount="indefinite" path="M700,242 A88,88 0 1 1 699.99,242"/></circle>
+              <circle r="4" fill="#1E6FA8" opacity=".75"><animateMotion dur="7s" begin="-2.3s" repeatCount="indefinite" path="M700,242 A88,88 0 1 1 699.99,242"/></circle>
+              <circle r="4" fill="#1E6FA8" opacity=".75"><animateMotion dur="7s" begin="-4.6s" repeatCount="indefinite" path="M700,242 A88,88 0 1 1 699.99,242"/></circle>
+              <text x="700" y="318" text-anchor="middle" class="mono" font-size="20" font-weight="700" fill="#145A8C">Stroma</text>
+              <text x="700" y="345" text-anchor="middle" font-size="16" font-weight="800" fill="#1E6FA8">Işıktan bağımsız</text>
+              <text x="700" y="366" text-anchor="middle" font-size="16" font-weight="800" fill="#1E6FA8">reaksiyonlar</text>
+              <rect x="556" y="192" width="288" height="276" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- CO2 girişi -->
+            <g data-g="s4" data-click="4">
+              <text x="800" y="52" text-anchor="middle" class="mono" font-size="22" font-weight="700" fill="#17352A">CO<tspan dy="6" font-size="14">2</tspan></text>
+              <path d="M800,80 L800,200" stroke="#4C8C3F" stroke-width="7" stroke-linecap="round" marker-end="url(#mGreen)"/>
+              <circle r="6" fill="#4C8C3F"><animateMotion dur="1.7s" begin="0s" repeatCount="indefinite" path="M800,86 L800,196"/></circle>
+              <circle r="6" fill="#4C8C3F"><animateMotion dur="1.7s" begin="-0.6s" repeatCount="indefinite" path="M800,86 L800,196"/></circle>
+              <circle r="6" fill="#4C8C3F"><animateMotion dur="1.7s" begin="-1.2s" repeatCount="indefinite" path="M800,86 L800,196"/></circle>
+              <rect x="764" y="36" width="72" height="172" fill="none" pointer-events="all"/>
+            </g>
+
+            <!-- Glikoz çıkışı -->
+            <g data-g="s4" data-click="4">
+              <path d="M800,455 L800,560" stroke="#4C8C3F" stroke-width="7" stroke-linecap="round" marker-end="url(#mGreen)"/>
+              <text x="800" y="604" text-anchor="middle" class="mono" font-size="20" font-weight="700" fill="#17352A">C<tspan dy="6" font-size="13">6</tspan><tspan dy="-6">H</tspan><tspan dy="6" font-size="13">12</tspan><tspan dy="-6">O</tspan><tspan dy="6" font-size="13">6</tspan></text>
+              <polygon points="7,0 3.5,6 -3.5,6 -7,0 -3.5,-6 3.5,-6" fill="#4C8C3F"><animateMotion dur="2.2s" begin="0s" repeatCount="indefinite" path="M785,415 C800,455 800,505 800,552"/></polygon>
+              <polygon points="7,0 3.5,6 -3.5,6 -7,0 -3.5,-6 3.5,-6" fill="#4C8C3F"><animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite" path="M785,415 C800,455 800,505 800,552"/></polygon>
+              <rect x="758" y="440" width="84" height="182" fill="none" pointer-events="all"/>
+            </g>
+          </svg>
+          <div class="legend">
+            <span class="l-red"><i></i>Işık / H₂O → O₂</span>
+            <span class="l-water"><i></i>Su damlası</span>
+            <span class="l-sun"><i></i>ATP (dolu akü)</span>
+            <span class="l-teal"><i></i>NADPH / ADP</span>
+            <span class="l-blue"><i></i>Calvin döngüsü</span>
+            <span class="l-green"><i></i>CO₂ / şeker</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="stage-panel reveal d1">
+        <div class="panel-card">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" fill="#E9A13B" stroke="#17352A" stroke-width="1.8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" stroke="#17352A" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Sahneyi keşfet
+          </div>
+          <div class="stage-list" id="stageList"></div>
+          <div class="play-row">
+            <button class="btn primary" id="playBtn">
+              <svg id="icPlay" width="15" height="15" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z" fill="currentColor"/></svg>
+              <svg id="icPause" width="15" height="15" viewBox="0 0 24 24" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/></svg>
+              <span id="playLabel">Otomatik oynat</span>
+            </button>
+          </div>
+        </div>
+        <div class="panel-card" id="stageInfo">
+          <h4 id="stTitle"></h4>
+          <p id="stText"></p>
+          <ul id="stPoints"></ul>
+          <div class="eq-chip" id="stEq"></div>
+        </div>
+        <p class="panel-hint">Grana, ATP yıldızı ve mavi döngüye tıklayarak da ilgili aşamaya atlayabilirsin.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DENKLEM ================= -->
+<section class="sec" id="denklem">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="sec-num" style="justify-content:center">02 — Genel Denklem</div>
+      <h2>Molekül molekül oku</h2>
+      <p>Denklemin her terimine dokun: hangi madde nereden gelir, ne işe yarar?</p>
+    </div>
+    <div class="chips reveal d1" id="chips">
+      <button class="chip" data-note="n-co2">
+        <span class="formula" style="color:#5B6770">6 CO<sub>2</sub></span>
+        <svg class="mol" width="64" height="20" viewBox="0 0 64 20"><circle cx="10" cy="10" r="5" fill="#5B6770"/><line x1="15" y1="10" x2="26" y2="10" stroke="#5B6770" stroke-width="2"/><circle cx="32" cy="10" r="6" fill="#D64541" stroke="#9C2B28" stroke-width="1.6"/><line x1="38" y1="10" x2="49" y2="10" stroke="#5B6770" stroke-width="2"/><circle cx="55" cy="10" r="5" fill="#D64541"/></svg>
+      </button>
+      <button class="chip" data-note="n-h2o">
+        <span class="formula" style="color:var(--water)">6 H<sub>2</sub>O</span>
+        <svg class="mol" width="52" height="26" viewBox="0 0 52 26"><circle cx="26" cy="17" r="6" fill="#D64541" stroke="#9C2B28" stroke-width="1.6"/><line x1="22" y1="12" x2="14" y2="5" stroke="#2E86B8" stroke-width="2"/><circle cx="11" cy="5" r="4.5" fill="#BFE0F0" stroke="#2E86B8" stroke-width="1.6"/><line x1="30" y1="12" x2="38" y2="5" stroke="#2E86B8" stroke-width="2"/><circle cx="41" cy="5" r="4.5" fill="#BFE0F0" stroke="#2E86B8" stroke-width="1.6"/></svg>
+      </button>
+      <button class="chip" data-note="n-c6">
+        <span class="formula" style="color:var(--green-d)">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></span>
+        <svg class="mol" width="30" height="30" viewBox="0 0 30 30"><path d="M15 3l10.4 6v12L15 27 4.6 21V9L15 3Z" fill="#E4F0E0" stroke="#2F8B4E" stroke-width="2.2"/><circle cx="15" cy="15" r="3" fill="#2F8B4E"/></svg>
+      </button>
+      <button class="chip" data-note="n-o2">
+        <span class="formula" style="color:var(--red)">6 O<sub>2</sub></span>
+        <svg class="mol" width="40" height="20" viewBox="0 0 40 20"><circle cx="13" cy="10" r="6.5" fill="#D64541" stroke="#9C2B28" stroke-width="1.6"/><circle cx="27" cy="10" r="6.5" fill="#D64541" stroke="#9C2B28" stroke-width="1.6"/><line x1="19.5" y1="7" x2="20.5" y2="7" stroke="#9C2B28" stroke-width="2"/><line x1="19.5" y1="13" x2="20.5" y2="13" stroke="#9C2B28" stroke-width="2"/></svg>
+      </button>
+      <div class="chip-note" id="n-co2"><p><b>Karbondioksit:</b> Havadan, yapraktaki gözeneklerden (stomalar) girer. Şekerin tüm karbon atomlarının kaynağıdır; Calvin döngüsünde yakalanır.</p></div>
+      <div class="chip-note" id="n-h2o"><p><b>Su:</b> Köklerden iletim demetleriyle yaprağa taşınır. Işığa bağlı reaksiyonlarda ayrışır (fotoliz): elektronlarını verir, O₂ gazını serbest bırakır.</p></div>
+      <div class="chip-note" id="n-c6"><p><b>Glikoz:</b> Ürün! Bitki bu şekeri hücresel solunumla enerjiye çevirir ya da nişasta ve selüloz gibi yapı maddelerine dönüştürür.</p></div>
+      <div class="chip-note" id="n-o2"><p><b>Oksijen:</b> Suyun ayrışmasından çıkan yan ürün. Suyun içindeki oksijen atomları birleşerek atmosfere karışır — nefes aldığımız O₂ buradan gelir.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KARŞILAŞTIRMA ================= -->
+<section class="sec" id="karsilastirma">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num" style="color:var(--sun)">03 — İki Reaksiyon, Tek Sistem</div>
+      <h2 style="color:var(--cream-on-dark)">Işığa bağlı mı, bağımsız mı?</h2>
+      <p>Aynı kloroplastta iki farklı iş atölyesi çalışır. İkisi birbirinin malzemesini el değiştirerek sürekli bir döngü kurar.</p>
+    </div>
+
+    <div class="cmp reveal d1">
+      <div class="cmp-heads">
+        <div class="cmp-h left">
+          <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" fill="#17352A"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" stroke="#17352A" stroke-width="2" stroke-linecap="round"/></svg></span>
+          Işığa Bağlı Reaksiyonlar
+        </div>
+        <div></div>
+        <div class="cmp-h right">
+          <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#17352A" stroke-width="2.4" stroke-linecap="round"/><path d="M20 3v4h-4" stroke="#17352A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Işıktan Bağımsız Reaksiyonlar (Calvin)
+        </div>
+      </div>
+      <div class="cmp-row"><div class="cmp-cell left">Tilakoid zarları — grana yığınlarının içi</div><div class="cmp-tag">YER</div><div class="cmp-cell right">Stroma — kloroplastın sıvı ortamı</div></div>
+      <div class="cmp-row"><div class="cmp-cell left"><b>Kesinlikle gerekli</b> — ışık olmadan başlamaz</div><div class="cmp-tag">IŞIK</div><div class="cmp-cell right">Gerekmez — gündüz biriktirilen enerji yeter</div></div>
+      <div class="cmp-row"><div class="cmp-cell left">H₂O, ADP + P<sub>i</sub>, NADP<sup>+</sup>, ışık</div><div class="cmp-tag">GİRDİLER</div><div class="cmp-cell right">CO₂, ATP, NADPH</div></div>
+      <div class="cmp-row"><div class="cmp-cell left">O₂, ATP, NADPH</div><div class="cmp-tag">ÇIKTILAR</div><div class="cmp-cell right">G3P → glikoz, ADP + P<sub>i</sub>, NADP<sup>+</sup></div></div>
+      <div class="cmp-row"><div class="cmp-cell left">Işık enerjisini <b>ATP ve NADPH</b>'a çevirir; suyu ayrıştırır</div><div class="cmp-tag">GÖREV</div><div class="cmp-cell right">CO₂'nin karbonunu ATP &amp; NADPH gücüyle <b>şekere bağlar</b></div></div>
+      <div class="cmp-row"><div class="cmp-cell left">Ürettiği ATP &amp; NADPH → Calvin döngüsüne gider</div><div class="cmp-tag">BAĞLANTI</div><div class="cmp-cell right">Boşalan ADP &amp; NADP<sup>+</sup> → granaya geri döner</div></div>
+    </div>
+
+    <div class="cmp-note reveal d2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M20 3v4h-4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      İki sistem birbirini besler: biri enerjiyi paketler, diğeri harcar — döngü kesintisiz döner.
+    </div>
+  </div>
+</section>
+
+<!-- ================= CALVIN ================= -->
+<section class="sec" id="calvin">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">04 — Calvin Döngüsü</div>
+      <h2>CO₂'den şekere üç adım</h2>
+      <p>Stromada işleyen bu döngünün her turunda atmosferdeki karbon, şeker molekülüne dönüşmeye bir adım daha yaklaşır.</p>
+    </div>
+
+    <div class="calvin-grid">
+      <div class="calvin-wrap reveal">
+        <svg id="calvinWheel" viewBox="0 0 480 440" aria-label="Calvin döngüsü diyagramı">
+          <defs>
+            <marker id="cBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1E6FA8"/></marker>
+            <marker id="cSun" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B57414"/></marker>
+          </defs>
+          <path class="arc" id="arc1" data-arc="1" d="M240,90 A130,130 0 0 1 352.6,285" stroke="#1E6FA8" stroke-width="13" fill="none" stroke-linecap="round" marker-end="url(#cBlue)"/>
+          <path class="arc" id="arc2" data-arc="2" d="M352.6,285 A130,130 0 0 1 127.4,285" stroke="#1E6FA8" stroke-width="13" fill="none" stroke-linecap="round" marker-end="url(#cBlue)"/>
+          <path class="arc" id="arc3" data-arc="3" d="M127.4,285 A130,130 0 0 1 240,90" stroke="#1E6FA8" stroke-width="13" fill="none" stroke-linecap="round" marker-end="url(#cBlue)"/>
+
+          <circle r="5" fill="#B57414"><animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M240,90 A130,130 0 0 1 352.6,285"/></circle>
+          <circle r="5" fill="#B57414"><animateMotion dur="2.4s" begin="-0.8s" repeatCount="indefinite" path="M352.6,285 A130,130 0 0 1 127.4,285"/></circle>
+          <circle r="5" fill="#B57414"><animateMotion dur="2.4s" begin="-1.6s" repeatCount="indefinite" path="M127.4,285 A130,130 0 0 1 240,90"/></circle>
+
+          <g class="node" id="node1"><circle cx="240" cy="90" r="24" fill="#FFFDF6" stroke="#17352A" stroke-width="2.5"/><text x="240" y="97" text-anchor="middle" font-size="17" font-weight="800" fill="#17352A">1</text></g>
+          <g class="node" id="node2"><circle cx="352.6" cy="285" r="24" fill="#FFFDF6" stroke="#17352A" stroke-width="2.5"/><text x="352.6" y="292" text-anchor="middle" font-size="17" font-weight="800" fill="#17352A">2</text></g>
+          <g class="node" id="node3"><circle cx="127.4" cy="285" r="24" fill="#FFFDF6" stroke="#17352A" stroke-width="2.5"/><text x="127.4" y="292" text-anchor="middle" font-size="17" font-weight="800" fill="#17352A">3</text></g>
+
+          <text x="240" y="44" text-anchor="middle" font-size="15" font-weight="800" fill="#1C5E38">CO₂ tutulur (Rubisco)</text>
+          <text x="372" y="288" text-anchor="start" font-size="15" font-weight="800" fill="#1C5E38">İndirgeme</text>
+          <text x="108" y="288" text-anchor="end" font-size="15" font-weight="800" fill="#1C5E38">RuBP yenilenir</text>
+
+          <text x="240" y="200" text-anchor="middle" class="mono" font-size="13" font-weight="700" letter-spacing="2" fill="#145A8C">CALVİN</text>
+          <text x="240" y="219" text-anchor="middle" class="mono" font-size="13" font-weight="700" letter-spacing="2" fill="#145A8C">DÖNGÜSÜ</text>
+          <text x="240" y="252" text-anchor="middle" class="mono" font-size="15" font-weight="700" fill="#B57414">Tur: <tspan id="turCount">0</tspan></text>
+        </svg>
+      </div>
+
+      <div class="step-card reveal d1">
+        <span class="step-count">ADIM <span id="stepNo">1</span> / 3</span>
+        <h3 id="stepTitle"></h3>
+        <p id="stepText"></p>
+        <div class="eq-chip" id="stepEq"></div>
+        <div class="step-btns">
+          <button class="btn primary" id="stepNext">Adımı ilerlet
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn ghost" id="stepReset">Sıfırla</button>
+        </div>
+        <div class="calvin-note">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"/><path d="M12 8v5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16.2" r="1.3" fill="currentColor"/></svg>
+          3 tur = 1 G3P • 6 tur = 1 glikoz (C₆H₁₂O₆)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="sec" id="quiz">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="sec-num" style="justify-content:center">05 — Kendini Dene</div>
+      <h2>6 soruluk mini test</h2>
+      <p>Sahneyi izlediysen hepsini bilirsin. Her cevaptan sonra kısa bir açıklama gelir.</p>
+    </div>
+
+    <div class="quiz-box reveal d1">
+      <div id="quizPlay">
+        <div class="quiz-top">
+          <span class="quiz-count" id="quizCount">SORU 1 / 6</span>
+          <div class="quiz-dots" id="quizDots"></div>
+        </div>
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="quiz-opts" id="quizOpts"></div>
+        <div class="quiz-why" id="quizWhy"></div>
+        <div class="quiz-next" id="quizNextWrap">
+          <button class="btn dark" id="quizNext">Sonraki soru
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="quizResult" class="quiz-result" style="display:none">
+        <div class="ring-wrap">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="60" fill="none" stroke="#E5DECA" stroke-width="12"/>
+            <circle id="ringBar" cx="75" cy="75" r="60" fill="none" stroke="#2F8B4E" stroke-width="12" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="377" style="transition:stroke-dashoffset 1.2s ease"/>
+          </svg>
+          <div class="ring-num"><span><span id="scoreNum">0</span><small>/6</small></span></div>
+        </div>
+        <h3 id="resultTitle"></h3>
+        <p id="resultText"></p>
+        <button class="btn primary" id="quizRestart">Baştan başla</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-eq">6 CO₂ + 6 H₂O + <span style="color:var(--sun)">ışık</span> → <span class="t-c6">C₆H₁₂O₆</span> + <span class="t-o2">6 O₂</span></div>
+    <p>Öğrenciler için hazırlanmış interaktif fotosentez rehberi. Bu sayfa tek bir HTML dosyasıdır; GitHub deposuna <b>index.html</b> olarak yükleyip Settings → Pages'ten yayınlayabilirsin.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Sahne: aşama verileri ---------- */
+const STAGES = [
+  {n:"→", t:"Bütün resim", title:"Kloroplast: iki atölye, tek fabrika",
+   text:"Solda grana üzerinde ışığa bağlı reaksiyonlar, sağda stromada Calvin döngüsü çalışır. İkisini ATP, NADPH, ADP ve NADP⁺ taşıyıcıları birbirine bağlar.",
+   pts:["Işığa bağlı: H₂O + ışık → O₂ + ATP + NADPH","Calvin döngüsü: CO₂ + ATP + NADPH → şeker","Taşıyıcılar sürekli el değiştirir, döngü kesilmez."],
+   eq:"6CO₂ + 6H₂O + ışık → C₆H₁₂O₆ + 6O₂", g:[]},
+  {n:"1", t:"Işığın yakalanması", title:"Klorofil ışığı soğurur",
+   text:"Güneşten gelen ışık, grana'yı oluşturan tilakoid zarlarındaki klorofil moleküllerini uyarır. Klorofil özellikle kırmızı ve mavi ışığı soğurur; yeşili yansıttığı için yapraklar yeşil görünür.",
+   pts:["Enerji kaynağı: güneş ışığı","Pigmentler: klorofil a, klorofil b, karotenoidler","Mekân: tilakoid zarlar (grana)"],
+   eq:"Işık enerjisi → klorofilin elektronlarına aktarılır", g:["s1"]},
+  {n:"2", t:"Işığa bağlı reaksiyonlar", title:"Su ayrışır, oksijen doğar",
+   text:"Uyarılan elektronlar tilakoid zardaki taşıma zincirinde yürür. Su molekülleri fotolizle ayrışır: elektronlar zincire verilir, H⁺ iyonları birikir, oksijen gaz olarak dışarı çıkar.",
+   pts:["Fotoliz: 2H₂O → 4H⁺ + 4e⁻ + O₂","O₂ bizim için yan üründür — nefes kaynağımız","H⁺ gradyanı ATP sentezini çalıştıracak"],
+   eq:"2H₂O → O₂ + 4H⁺ + 4e⁻", g:["s2"]},
+  {n:"3", t:"Enerji taşıyıcıları", title:"Aküler dolar: ATP ve NADPH",
+   text:"Elektron taşıma zincirinin enerjisi ADP + Pᵢ molekülünü ATP'ye çevirir (kemiyozmoz). Zincirin sonunda NADP⁺, elektron ve H⁺ alarak NADPH olur. Bu iki dolu 'akü' Calvin döngüsüne fırlatılır.",
+   pts:["ADP + Pᵢ → ATP (akü şarj oluyor)","NADP⁺ + H⁺ + e⁻ → NADPH","Boş aküler (ADP, NADP⁺) granaya geri döner"],
+   eq:"Işık enerjisi → ATP + NADPH (kimyasal enerji)", g:["s3"]},
+  {n:"4", t:"Calvin döngüsü", title:"Stromada şeker inşaası",
+   text:"Stromada çalışan Calvin döngüsü, havadan gelen CO₂'yi yakalar ve ATP ile NADPH'ın enerjisiyle şeker üretir. Boşalan ADP ve NADP⁺ granaya dönerek yeniden şarj olur — sistem tamamlanır.",
+   pts:["Karbonu yakalayan enzim: Rubisco","3 tur → 1 G3P, 6 tur → 1 glikoz","Glikoz → nişasta, selüloz ve solunum yakıtı"],
+   eq:"6CO₂ + 18ATP + 12NADPH → C₆H₁₂O₆ + 18ADP + 12NADP⁺", g:["s4"]},
+];
+
+const scene = document.getElementById('scene');
+const stageList = document.getElementById('stageList');
+let curStage = 0;
+
+STAGES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='stage-btn'+(i===0?' active':'');
+  b.innerHTML=`<span class="num">${s.n}</span>${s.t}`;
+  b.addEventListener('click',()=>{stopPlay();setStage(i);});
+  stageList.appendChild(b);
+});
+
+function setStage(i){
+  curStage=i;
+  const st=STAGES[i];
+  scene.querySelectorAll('[data-g]').forEach(el=>{
+    const on = i===0 || (el.dataset.g||'').split(' ').includes('s'+i);
+    el.classList.toggle('dimmed', !on);
+  });
+  document.querySelectorAll('.stage-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  document.getElementById('stTitle').textContent=st.title;
+  document.getElementById('stText').textContent=st.text;
+  document.getElementById('stPoints').innerHTML=st.pts.map(p=>`<li>${p}</li>`).join('');
+  document.getElementById('stEq').textContent=st.eq;
+}
+setStage(0);
+
+scene.querySelectorAll('[data-click]').forEach(el=>{
+  el.addEventListener('click',()=>{stopPlay();setStage(+el.dataset.click);});
+});
+
+/* Otomatik oynatma */
+const playBtn=document.getElementById('playBtn');
+let playTimer=null;
+function startPlay(){
+  playTimer=setInterval(()=>setStage((curStage+1)%5),7000);
+  document.getElementById('icPlay').style.display='none';
+  document.getElementById('icPause').style.display='';
+  document.getElementById('playLabel').textContent='Duraklat';
+  setStage(1);
+}
+function stopPlay(){
+  if(playTimer){clearInterval(playTimer);playTimer=null;}
+  document.getElementById('icPlay').style.display='';
+  document.getElementById('icPause').style.display='none';
+  document.getElementById('playLabel').textContent='Otomatik oynat';
+}
+playBtn.addEventListener('click',()=>playTimer?stopPlay():startPlay());
+
+/* ---------- Denklem çipleri ---------- */
+document.querySelectorAll('.chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    const note=document.getElementById(c.dataset.note);
+    const wasOpen=note.classList.contains('open');
+    document.querySelectorAll('.chip-note').forEach(n=>n.classList.remove('open'));
+    if(!wasOpen)note.classList.add('open');
+  });
+});
+
+/* ---------- Calvin çarkı ---------- */
+const STEPS=[
+  {t:"1. Karbon Tutma",
+   d:"Döngünün girişinde Rubisco enzimi, havadan gelen bir CO₂ molekülünü 5 karbonlu RuBP'ye bağlar. Oluşan kararsız bileşik hemen bölünerek iki adet 3 karbonlu 3-PGA verir.",
+   eq:"CO₂ + RuBP (5C) → 2 × 3-PGA (3C)"},
+  {t:"2. İndirgeme",
+   d:"Işık reaksiyonlarından gelen ATP enerjiyi, NADPH ise elektronları verir. 3-PGA molekülleri indirgenerek enerji yüklü G3P şekerine dönüşür. Aküler boşalır: ADP ve NADP⁺ granaya döner.",
+   eq:"3-PGA + ATP + NADPH → G3P + ADP + NADP⁺"},
+  {t:"3. RuBP Yenilenmesi",
+   d:"Üretilen G3P'nin çoğu, ATP harcanarak tekrar RuBP'ye çevrilir; böylece döngü yeni bir CO₂'yi karşılamaya hazır olur. Küçük bir kısım G3P ise şeker sentez yoluna sapar.",
+   eq:"5 × G3P + 3 ATP → 3 × RuBP"},
+];
+let stepIdx=0, tur=0;
+function showStep(i){
+  document.getElementById('stepNo').textContent=i+1;
+  document.getElementById('stepTitle').textContent=STEPS[i].t;
+  document.getElementById('stepText').textContent=STEPS[i].d;
+  document.getElementById('stepEq').textContent=STEPS[i].eq;
+  [1,2,3].forEach(n=>{
+    document.getElementById('arc'+n).classList.toggle('active',n===i+1);
+    document.getElementById('node'+n).classList.toggle('active',n===i+1);
+  });
+}
+document.getElementById('stepNext').addEventListener('click',()=>{
+  stepIdx=(stepIdx+1)%3;
+  if(stepIdx===0){tur++;document.getElementById('turCount').textContent=tur;}
+  showStep(stepIdx);
+});
+document.getElementById('stepReset').addEventListener('click',()=>{
+  stepIdx=0;tur=0;document.getElementById('turCount').textContent=0;showStep(0);
+});
+showStep(0);
+
+/* ---------- Quiz ---------- */
+const QUIZ=[
+  {q:"Fotosentez hangi organelde gerçekleşir?",
+   o:["Mitokondri","Kloroplast","Çekirdek","Ribozom"],a:1,
+   w:"Fotosentez kloroplastta gerçekleşir: ışık reaksiyonları tilakoid zarlarında, Calvin döngüsü stromada yürür."},
+  {q:"Işığa bağlı reaksiyonlar kloroplastın tam olarak neresinde gerçekleşir?",
+   o:["Stromada","Grana'daki tilakoid zarlarında","Zarlar arası boşlukta","Sitoplazmada"],a:1,
+   w:"Klorofil pigmentleri tilakoid zarlarında bulunur; ışık burada yakalanır. Bu zar yığınlarına grana denir."},
+  {q:"Su molekülleri ışık enerjisiyle ayrıştırıldığında (fotoliz) hangi gaz açığa çıkar?",
+   o:["Karbondioksit (CO₂)","Azot (N₂)","Oksijen (O₂)","Hidrojen (H₂)"],a:2,
+   w:"Fotoliz: 2H₂O → 4H⁺ + 4e⁻ + O₂. Nefes aldığımız oksijen, suyun ayrışmasından gelen yan üründür."},
+  {q:"Calvin döngüsünü çalıştıran enerji taşıyıcıları hangileridir?",
+   o:["Glikoz ve nişasta","ADP ve NADP⁺","O₂ ve H₂O","ATP ve NADPH"],a:3,
+   w:"Işığa bağlı reaksiyonlarda üretilen ATP (enerji) ve NADPH (elektron), Calvin döngüsünde CO₂'yi şekere indirmek için harcanır."},
+  {q:"Işıktan bağımsız reaksiyonlar (Calvin döngüsü) kloroplastın hangi bölümünde gerçekleşir?",
+   o:["Grana'da","Tilakoid boşluğunda","Stromada","İç ve dış zar arasında"],a:2,
+   w:"Stroma, kloroplastın sıvı ortamıdır; CO₂'nin şekere dönüştüğü Calvin döngüsünün ev sahibidir."},
+  {q:"Bir glikoz molekülü (C₆H₁₂O₆) üretmek için Calvin döngüsü kaç tur döner?",
+   o:["2 tur","3 tur","6 tur","12 tur"],a:2,
+   w:"Her tur 1 CO₂ tutar. 6 karbonlu bir glikoz için 6 tur gerekir; her 3 turda 1 adet G3P açığa çıkar."},
+];
+let qi=0,score=0,answered=false;
+const dotsEl=document.getElementById('quizDots');
+QUIZ.forEach(()=>{const d=document.createElement('span');d.className='qdot';dotsEl.appendChild(d);});
+
+function renderQ(){
+  answered=false;
+  document.getElementById('quizCount').textContent=`SORU ${qi+1} / ${QUIZ.length}`;
+  document.getElementById('quizQ').textContent=QUIZ[qi].q;
+  document.getElementById('quizWhy').classList.remove('show');
+  document.getElementById('quizNextWrap').classList.remove('show');
+  [...dotsEl.children].forEach((d,i)=>d.classList.toggle('now',i===qi));
+  const opts=document.getElementById('quizOpts');opts.innerHTML='';
+  QUIZ[qi].o.forEach((o,i)=>{
+    const b=document.createElement('button');b.className='qopt';
+    b.innerHTML=`<span class="abc">${'ABCD'[i]}</span>${o}`;
+    b.addEventListener('click',()=>pick(i,b));
+    opts.appendChild(b);
+  });
+}
+function pick(i,btn){
+  if(answered)return;answered=true;
+  const Q=QUIZ[qi];
+  document.querySelectorAll('.qopt').forEach((b,bi)=>{
+    b.disabled=true;
+    if(bi===Q.a)b.classList.add('correct');
+    else if(bi===i)b.classList.add('wrong');
+    else b.classList.add('faded');
+  });
+  const ok=i===Q.a; if(ok)score++;
+  dotsEl.children[qi].classList.remove('now');
+  dotsEl.children[qi].classList.add(ok?'done-ok':'done-no');
+  const why=document.getElementById('quizWhy');
+  why.innerHTML=(ok?'<b style="color:var(--green-d)">Doğru!</b> ':'<b style="color:var(--red)">Yanlış.</b> ')+Q.w;
+  why.classList.add('show');
+  document.getElementById('quizNext').textContent=qi===QUIZ.length-1?'Sonucu gör':'Sonraki soru';
+  document.getElementById('quizNextWrap').classList.add('show');
+}
+document.getElementById('quizNext').addEventListener('click',()=>{
+  qi++;
+  if(qi<QUIZ.length)renderQ();else showResult();
+});
+function showResult(){
+  document.getElementById('quizPlay').style.display='none';
+  document.getElementById('quizResult').style.display='';
+  document.getElementById('scoreNum').textContent=score;
+  setTimeout(()=>{
+    document.getElementById('ringBar').style.strokeDashoffset=377-(377*score/6);
+  },80);
+  const T=document.getElementById('resultTitle'),X=document.getElementById('resultText');
+  if(score===6){T.textContent='Kusursuz!';X.textContent='Işığı şekere çevirmenin bütün sırrını çözdün. Bitkiler seninle gurur duyar.';}
+  else if(score>=4){T.textContent='Çok iyi!';X.textContent='Neredeyse tamam — kaçırdığın soruların açıklamalarını oku, bir tur daha dönmeye ne dersin?';}
+  else{T.textContent='Döngüde bir tur eksik';X.textContent='Canlı sahneyi tekrar oynat: dört aşamayı izlemek cevapları zihnine yerleştirecek.';}
+}
+document.getElementById('quizRestart').addEventListener('click',()=>{
+  qi=0;score=0;
+  [...dotsEl.children].forEach(d=>d.className='qdot');
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizPlay').style.display='';
+  document.getElementById('ringBar').style.strokeDashoffset=377;
+  renderQ();
+});
+renderQ();
+
+/* ---------- Scroll reveal + nav aktif ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('#navLinks a');
+const navIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+  }
+}),{rootMargin:'-40% 0px -55% 0px'});
+secs.forEach(s=>navIO.observe(s));
+
+/* Hareket azaltma tercihi */
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('svg').forEach(s=>{if(s.pauseAnimations)s.pauseAnimations();});
+}
+</script>
+</body>
+</html>
