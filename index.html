@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fotosentez — İnteraktif Kloroplast Laboratuvarı</title>
-<meta name="description" content="Öğrenciler için interaktif fotosentez rehberi: animasyonlu kloroplast sahnesi, Calvin döngüsü ve mini test.">
+<title>Fotosentez Nasıl Gerçekleşir?</title>
+<meta name="description" content="Açıklaycı olmaya çalışan bir model. :)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -60,6 +60,7 @@ sub{font-size:.62em}
 .btn.dark{background:var(--ink);color:var(--paper)}
 .btn.ghost{box-shadow:none;border-color:transparent;text-decoration:underline;text-underline-offset:4px}
 .btn.ghost:hover{transform:none;border-color:var(--ink)}
+.btn:disabled{opacity:.55;cursor:default;transform:none!important;box-shadow:4px 4px 0 var(--ink)!important}
 
 /* ---------- Hero ---------- */
 .hero{position:relative;padding:72px 0 40px;overflow:hidden}
@@ -161,7 +162,7 @@ sub{font-size:.62em}
 }
 .stage-btn:hover{border-color:var(--ink);transform:translateX(3px)}
 .stage-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.stage-btn.active .num{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.stage-btn.active .num{background:var(--sun);border-color:var(--sun);color:#17352A}
 .play-row{display:flex;gap:10px;margin-top:12px}
 .play-row .btn{flex:1;justify-content:center;padding:10px 14px}
 #stageInfo h4{font-family:'Fraunces',serif;font-size:21px;font-weight:800;margin:0 0 10px}
@@ -322,6 +323,116 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* ================= YENİ MODÜLLER ================= */
+.alt{background:var(--paper2);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.nav-in .nav-links{flex:1}
+.icon-btn{width:42px;height:42px;flex:none;border-radius:12px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:3px 3px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.icon-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.icon-btn .m{display:none}
+html[data-theme="dark"] .icon-btn .m{display:block}
+html[data-theme="dark"] .icon-btn .s{display:none}
+.btn.primary{color:#17352A}
+html[data-theme="dark"]{
+  --paper:#0D2018;--paper2:#0A1913;--ink:#EDE7D2;--ink2:#9DB4A6;--line:#31503E;
+  --green:#46C078;--green-d:#8FDCA9;--sun:#F0B458;--sun-d:#F0B458;--red:#F2837B;
+  --water:#63B9E4;--calvin:#5FB0DC;--teal:#46ADA4;--card:#152B20;--dark:#0B1812;
+}
+html[data-theme="dark"] body{background-image:radial-gradient(rgba(237,231,212,.06) 1px,transparent 1.2px)}
+html[data-theme="dark"] .qopt.correct{background:#173B26;color:#B9F0CB}
+html[data-theme="dark"] .qopt.wrong{background:#3B1A1C;color:#FFC9C5}
+body,.panel-card,.scene-wrap,.calvin-wrap,.quiz-box,.nav,.chart-box,.cnt,.leaf-wrap,.krom-wrap{transition:background-color .35s ease,color .35s ease,border-color .35s ease,box-shadow .35s ease}
+
+/* --- Lab --- */
+.lab-grid{display:grid;grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr);gap:24px;align-items:start}
+.lab-row{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:14px;margin-top:6px}
+.val{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;background:var(--paper2);border:2px solid var(--line);border-radius:8px;padding:3px 9px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;background:transparent;cursor:pointer;margin:0 0 6px}
+input[type=range]::-webkit-slider-runnable-track{height:10px;border:2px solid var(--ink);border-radius:99px;background:var(--paper2)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sun);border:2.5px solid var(--ink);margin-top:-8px;box-shadow:2px 2px 0 var(--ink)}
+input[type=range]::-moz-range-track{height:10px;border:2px solid var(--ink);border-radius:99px;background:var(--paper2)}
+input[type=range]::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:var(--sun);border:2.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.preset-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.preset{cursor:pointer;font:inherit;font-size:12.5px;font-weight:800;color:var(--ink);border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:6px 12px;box-shadow:2px 2px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.preset:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.rate-num{font-family:'Fraunces',serif;font-weight:900;font-size:52px;line-height:1}
+.rate-num small{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--ink2);margin-left:6px}
+.rate-bar{height:16px;border:2px solid var(--ink);border-radius:99px;background:var(--paper2);overflow:hidden}
+.rate-bar i{display:block;height:100%;width:0;background:var(--green);transition:width .45s ease}
+.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cnt{border:2px solid var(--ink);border-radius:12px;background:var(--card);padding:10px 8px;box-shadow:3px 3px 0 var(--ink);text-align:center}
+.cnt span{display:block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
+.cnt b{display:block;font-family:'IBM Plex Mono',monospace;font-size:22px;margin-top:2px}
+.chart-box{border:2px solid var(--ink);border-radius:16px;background:var(--card);box-shadow:6px 6px 0 var(--ink);padding:12px}
+.chart-box canvas{display:block;width:100%}
+#labChart{height:230px}#dayChart{height:300px}#specChart{height:260px}
+#plantSvg{width:100%;height:auto;display:block}
+.bub{animation:bubRise 1.6s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bubRise{from{transform:translateY(0);opacity:.95}70%{opacity:.65}to{transform:translateY(-46px);opacity:0}}
+
+/* --- Gün döngüsü --- */
+.day-grid{display:grid;grid-template-columns:minmax(330px,1fr) minmax(0,1.5fr);gap:24px;align-items:start}
+.sky{position:relative;height:70px;border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin-bottom:12px;background:#84C4EC;transition:background .3s}
+.sunb,.moonb{position:absolute;width:30px;height:30px;border-radius:50%;border:2.5px solid #17352A;transition:left .25s linear,top .25s linear,background .3s}
+.sunb{background:var(--sun);box-shadow:0 0 16px rgba(240,180,88,.85)}
+.moonb{background:#D8D8E6;box-shadow:0 0 12px rgba(216,216,230,.6)}
+
+/* --- Spektrum --- */
+.spec-grid{display:grid;grid-template-columns:minmax(320px,1fr) minmax(0,1.5fr);gap:24px;align-items:start}
+.chk-row{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px}
+.chk{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;cursor:pointer}
+.chk input{accent-color:var(--green);width:16px;height:16px;cursor:pointer}
+.dotc{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);display:inline-block}
+.chipc{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);margin-right:7px;vertical-align:-2px}
+.leaves{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.leaf-card{display:flex;gap:16px;align-items:center;border:2px solid var(--ink);border-radius:14px;background:var(--card);box-shadow:4px 4px 0 var(--ink);padding:14px}
+.leaf-card b{font-family:'Fraunces',serif;font-size:16px}
+.leaf-card p{font-size:13px;color:var(--ink2);font-weight:600;margin-top:3px}
+.leaf-card svg{flex:none}
+
+/* --- Yaprak --- */
+.leaf-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(310px,1fr);gap:26px;align-items:start}
+.leaf-wrap,.krom-wrap{border:2px solid var(--ink);border-radius:18px;background:var(--card);box-shadow:6px 6px 0 var(--ink);padding:14px}
+#leafSvg{width:100%;height:auto;display:block}
+#leafSvg text,#chromSvg text{font-family:'Manrope',sans-serif}
+.hspot{cursor:pointer}
+.hspot circle{transform-box:fill-box;transform-origin:center;animation:pd 2.4s ease-in-out infinite;transition:fill .2s}
+.hspot:hover circle,.hspot.hsel circle{fill:var(--green)}
+@keyframes pd{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+.hlG{filter:drop-shadow(0 0 9px rgba(233,161,59,.95))}
+#gcL,#gcR{transition:transform .6s cubic-bezier(.55,0,.35,1.35)}
+#co2Flow,#vapFlow{transition:opacity .5s}
+
+/* --- Kromatografi --- */
+.krom-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(310px,1fr);gap:26px;align-items:start}
+#chromSvg{width:100%;height:auto;display:block}
+.pband{cursor:default}
+
+/* --- Tarih --- */
+.hist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.hist-card{border:2px solid var(--ink);background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.hist-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink)}
+.hist-year{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.12em;color:var(--sun-d)}
+.hist-card h3{font-size:18px;margin:6px 0 8px}
+.hist-card p{font-size:13.5px;color:var(--ink2);font-weight:600}
+
+/* --- Quiz ekstra --- */
+.qtimer{height:12px;border:2px solid var(--ink);border-radius:99px;background:var(--paper2);overflow:hidden;margin:2px 0 6px}
+.qtimer i{display:block;height:100%;width:100%;background:var(--sun)}
+.qtimer i.low{background:var(--red)}
+.qhint{margin-top:14px;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink2)}
+.rev{border:2px solid var(--line);border-radius:12px;padding:10px 13px;margin-top:9px;text-align:left;font-size:13.5px}
+.rev.ok{border-color:var(--green)}
+.rev.no{border-color:var(--red)}
+.rev-q{font-weight:800;margin-bottom:4px}
+.rev-n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:7px;border:2px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-right:8px}
+.rev-a{color:var(--ink2);font-weight:600;font-size:12.5px}
+#quizReview{margin-top:14px}
+
+@media (max-width:980px){
+  .lab-grid,.day-grid,.spec-grid,.leaf-grid,.krom-grid{grid-template-columns:1fr}
+  .leaves{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -337,9 +448,19 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
       <a href="#sahne">Canlı Sahne</a>
       <a href="#denklem">Denklem</a>
       <a href="#karsilastirma">Karşılaştırma</a>
-      <a href="#calvin">Calvin Döngüsü</a>
-      <a href="#quiz">Mini Test</a>
+      <a href="#calvin">Calvin</a>
+      <a href="#lab">Laboratuvar</a>
+      <a href="#gundong">Gün Döngüsü</a>
+      <a href="#spektrum">Spektrum</a>
+      <a href="#yaprak">Yaprak</a>
+      <a href="#krom">Kromatografi</a>
+      <a href="#tarih">Tarih</a>
+      <a href="#quiz">Test</a>
     </nav>
+    <button class="icon-btn" id="themeBtn" title="Açık / Koyu tema" aria-label="Tema değiştir">
+      <svg class="s" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.4" fill="#E9A13B" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg class="m" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 13.5A8.5 8.5 0 1 1 10.5 4a7 7 0 0 0 9.5 9.5Z" fill="#F2C14E" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 </header>
 
@@ -350,12 +471,13 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
   <div class="container" style="position:relative">
     <div class="kicker">Biyoloji • Hücrede Enerji</div>
     <h1>Foto<em>sentez</em></h1>
-    <p class="hero-sub">Işık enerjisi bir yaprağın içinde nasıl şekere dönüşür? Kloroplastın kapılarını aç, reaksiyonları adım adım canlı izle.</p>
+    <p class="hero-sub">Işık enerjisi bir yaprağın içinde nasıl şekere dönüşür? Kloroplastın kapılarını aç, reaksiyonları adım adım canlı izle — sonra koşulları sen yönet.</p>
     <div class="hero-cta">
       <a class="btn primary" href="#sahne">Sahneyi Keşfet
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a class="btn" href="#quiz">Hemen Test Çöz</a>
+      <a class="btn" href="#lab">Deneyi Başlat</a>
+      <a class="btn ghost" href="#quiz">Hemen Test Çöz</a>
     </div>
 
     <div class="eq-strip reveal">
@@ -382,7 +504,7 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
     <div class="sec-head reveal">
       <div class="sec-num">01 — Canlı Sahne</div>
       <h2>Kloroplastı çalıştır</h2>
-      <p>Aşamalara tıkla ya da <b>Oynat</a></b>'a bas; sahne her adımda ilgili parçayı öne çıkarır. İpucu: sahnedeki grana, yıldız ve döngüye doğrudan da tıklayabilirsin.</p>
+      <p>Aşamalara tıkla ya da <b>Oynat</b>'a bas; sahne her adımda ilgili parçayı öne çıkarır. İpucu: sahnedeki grana, yıldız ve döngüye doğrudan da tıklayabilirsin.</p>
     </div>
 
     <div class="scene-grid">
@@ -691,22 +813,295 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
   </div>
 </section>
 
+<!-- ================= LABORATUVAR ================= -->
+<section class="sec alt" id="lab">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">05 — Değişken Laboratuvarı</div>
+      <h2>Koşulları sen yönet</h2>
+      <p>Dört çevre değişkenini canlı olarak değiştir; sistem anlık <b>fotosentez hızını</b> ve <b>sınırlayıcı faktörü</b> hesaplar. Grafik, son ~60 saniyenin kaydını tutar.</p>
+    </div>
+    <div class="lab-grid">
+      <div class="panel-card reveal">
+        <div class="panel-title">Deney masası</div>
+        <div class="lab-row"><label for="rgLight">Işık şiddeti</label><output class="val" id="vLight">65 %</output></div>
+        <input type="range" id="rgLight" min="0" max="100" step="1" value="65">
+        <div class="lab-row"><label for="rgCO2">CO₂ derişimi</label><output class="val" id="vCO2">55 %</output></div>
+        <input type="range" id="rgCO2" min="0" max="100" step="1" value="55">
+        <div class="lab-row"><label for="rgTemp">Sıcaklık</label><output class="val" id="vTemp">28 °C</output></div>
+        <input type="range" id="rgTemp" min="0" max="45" step="0.5" value="28">
+        <div class="lab-row"><label for="rgWater">Su / nem</label><output class="val" id="vWater">75 %</output></div>
+        <input type="range" id="rgWater" min="0" max="100" step="1" value="75">
+        <div class="preset-row" id="presets"></div>
+      </div>
+      <div class="reveal d1" style="display:flex;flex-direction:column;gap:14px">
+        <div class="panel-card" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+          <div class="rate-num"><span id="labRate">0</span><small>/100 birim</small></div>
+          <div style="flex:1;min-width:180px">
+            <div class="rate-bar"><i id="labBar"></i></div>
+            <div class="eq-chip" id="limitChip" style="margin-top:10px">Şu an sınırlayıcı faktör: —</div>
+          </div>
+        </div>
+        <div class="counters">
+          <div class="cnt"><span>Salınan O₂</span><b id="cO2">0.0</b></div>
+          <div class="cnt"><span>Glikoz</span><b id="cGlu">0.00</b></div>
+          <div class="cnt"><span>Harcanan su</span><b id="cH2O">0.0</b></div>
+        </div>
+        <div class="panel-card">
+          <svg id="plantSvg" viewBox="0 0 260 200" role="img" aria-label="Test bitkisi ve kabarcıklar">
+            <rect x="42" y="58" width="176" height="126" rx="10" fill="none" stroke="var(--ink)" stroke-width="3"/>
+            <rect x="46" y="102" width="168" height="78" fill="#BFE0F0"/>
+            <path d="M120,178 C118,150 112,128 102,110" stroke="#2F8B4E" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M136,178 C138,146 144,122 154,104" stroke="#2F8B4E" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M128,178 C128,152 128,134 128,116" stroke="#48A75A" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="103" cy="112" rx="12" ry="6" fill="#48A75A" stroke="#1C5E38" stroke-width="1.5" transform="rotate(-28 103 112)"/>
+            <ellipse cx="153" cy="106" rx="12" ry="6" fill="#48A75A" stroke="#1C5E38" stroke-width="1.5" transform="rotate(24 153 106)"/>
+            <ellipse cx="128" cy="118" rx="12" ry="6" fill="#3E9B4F" stroke="#1C5E38" stroke-width="1.5"/>
+            <g id="plantBub">
+              <circle class="bub" cx="104" cy="150" r="3.5" fill="#fff" stroke="#8FB8C9" stroke-width="1.2"/>
+              <circle class="bub" cx="116" cy="158" r="2.8" fill="#fff" stroke="#8FB8C9" stroke-width="1.2"/>
+              <circle class="bub" cx="128" cy="146" r="4" fill="#fff" stroke="#8FB8C9" stroke-width="1.2"/>
+              <circle class="bub" cx="140" cy="160" r="3" fill="#fff" stroke="#8FB8C9" stroke-width="1.2"/>
+              <circle class="bub" cx="152" cy="150" r="3.6" fill="#fff" stroke="#8FB8C9" stroke-width="1.2"/>
+              <circle class="bub" cx="122" cy="166" r="2.5" fill="#fff" stroke="#8FB8C9" stroke-width="1.2"/>
+            </g>
+            <text x="130" y="197" text-anchor="middle" font-size="11.5" font-weight="800" fill="var(--ink2)">Elodea — O₂ kabarcıkları hıza göre artar</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="chart-box reveal d2" style="margin-top:22px"><canvas id="labChart"></canvas></div>
+    <p class="panel-hint" style="margin-top:12px">Sıcaklığı 40 °C'nin üzerine çıkar: enzimler bozulur ve hız çöker — denatürasyonu canlı izle.</p>
+  </div>
+</section>
+
+<!-- ================= GÜN DÖNGÜSÜ ================= -->
+<section class="sec" id="gundong">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">06 — 24 Saatlik Döngü</div>
+      <h2>Gün boyu gaz değişimi</h2>
+      <p>Güneş doğduğunda fotosentez solunumu geçer; akşam yeniden geriler. Kesişim anları <b>kompanzasyon noktaları</b>dır: O₂'nin artmaya başladığı yerle azaldığı yerin tam sınırı.</p>
+    </div>
+    <div class="day-grid">
+      <div class="panel-card reveal">
+        <div class="sky" id="sky"><span class="sunb" id="sunBall"></span><span class="moonb" id="moonBall"></span></div>
+        <div class="lab-row"><label for="dayTime">Günün saati</label><output class="val" id="dayVal">12:00</output></div>
+        <input type="range" id="dayTime" min="0" max="24" step="0.05" value="12">
+        <div class="play-row"><button class="btn primary" id="dayPlay">Günü oynat</button></div>
+        <div class="eq-chip" id="dayInfo" style="margin-top:14px"></div>
+      </div>
+      <div class="chart-box reveal d1"><canvas id="dayChart"></canvas></div>
+    </div>
+    <p class="panel-hint" style="margin-top:14px">Yeşil dolgu: fotosentezin solunumu geçtiği O₂ fazlası · Kırmızı dolgu: solunumun önde olduğu O₂ açığı · <b>K</b>: kompanzasyon noktası. Solunum gece de sürer — o yüzden gece alanı kırmızıdır.</p>
+  </div>
+</section>
+
+<!-- ================= SPEKTRUM ================= -->
+<section class="sec alt" id="spektrum">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">07 — Işık ve Pigmentler</div>
+      <h2>Hangi renk yaprağa yarar?</h2>
+      <p>Kaydırıcıyı tayf üzerinde gezdir: klorofilin soğurduğu bölgelerde yaprak karanlığa gömülür, yeşili yansıttığı yerde parlar. Pigment eğrilerini açıp kapatarak toplam soğurulmanın nasıl değiştiğini gör.</p>
+    </div>
+    <div class="spec-grid">
+      <div class="panel-card reveal">
+        <div class="lab-row"><label for="lam">Dalga boyu (λ)</label><output class="val"><span id="lamChip" class="chipc"></span><span id="lamVal">560 nm</span></output></div>
+        <input type="range" id="lam" min="380" max="750" step="1" value="560">
+        <div class="preset-row" id="lamPresets">
+          <button class="preset" data-l="430">430 · Mor-mavi</button>
+          <button class="preset" data-l="530">530 · Yeşil</button>
+          <button class="preset" data-l="643">643 · Turuncu</button>
+          <button class="preset" data-l="662">662 · Kırmızı</button>
+        </div>
+        <div class="chk-row">
+          <label class="chk"><input type="checkbox" id="cbA" checked><span class="dotc" style="background:#3AA05C"></span>Klorofil a</label>
+          <label class="chk"><input type="checkbox" id="cbB" checked><span class="dotc" style="background:#8CC63F"></span>Klorofil b</label>
+          <label class="chk"><input type="checkbox" id="cbCar" checked><span class="dotc" style="background:#E9A13B"></span>Karotenoid</label>
+          <label class="chk"><input type="checkbox" id="cbT" checked><span class="dotc" style="background:var(--ink)"></span>Toplam</label>
+        </div>
+        <div class="eq-chip" id="absVal" style="margin-top:14px"></div>
+        <p id="specHint" style="font-size:13.5px;font-weight:600;color:var(--ink2);margin-top:10px"></p>
+      </div>
+      <div class="chart-box reveal d1"><canvas id="specChart"></canvas></div>
+    </div>
+    <div class="leaves reveal d2">
+      <div class="leaf-card">
+        <svg viewBox="0 0 120 120" width="72" height="72"><path d="M60 8 C98 30 106 72 60 112 C14 72 22 30 60 8Z" fill="#39A84C" stroke="var(--ink)" stroke-width="2.5"/><path d="M60 16 V104" stroke="var(--ink)" stroke-width="2" opacity=".5"/></svg>
+        <div><b>Beyaz ışıkta</b><p>Tüm renkler birlikte: klorofil mavi-kırmızıyı yutar, yeşili geri gönderir → yaprak yeşil görünür.</p></div>
+      </div>
+      <div class="leaf-card">
+        <svg viewBox="0 0 120 120" width="72" height="72"><path id="leafMono" d="M60 8 C98 30 106 72 60 112 C14 72 22 30 60 8Z" fill="#39A84C" stroke="var(--ink)" stroke-width="2.5"/><path d="M60 16 V104" stroke="var(--ink)" stroke-width="2" opacity=".5"/></svg>
+        <div><b id="leafMonoT">Sadece 560 nm'de</b><p>Şu anki λ ile aydınlatılmış yaprak. Soğurulum arttıkça kararır — yanındaki çip fotonun rengini gösterir.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= YAPRAK KESİTİ ================= -->
+<section class="sec" id="yaprak">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">08 — Yaprak Kesiti</div>
+      <h2>Mikroskopta yakın plan</h2>
+      <p>Işığın izini hücre hücre sür: stoma kapısından giren CO₂, palizat dokusundaki kloroplastlara kadar yol alır. Numaralı noktalara tıkla; stomayı kapatıp açarak bekçi hücrelerini test et.</p>
+    </div>
+    <div class="leaf-grid">
+      <div class="leaf-wrap reveal">
+        <svg id="leafSvg" viewBox="0 0 1000 560" role="img" aria-label="Yaprak kesiti şeması">
+          <text x="60" y="42" font-size="15" font-weight="800" fill="var(--ink2)" letter-spacing="2">YAPRAK KESİTİ — DIŞTAN İÇE</text>
+          <g id="rgKut">
+            <rect x="58" y="58" width="884" height="10" rx="5" fill="#E9E2C8" stroke="var(--ink)" stroke-width="2"/>
+            <rect x="58" y="510" width="430" height="10" rx="5" fill="#E9E2C8" stroke="var(--ink)" stroke-width="2"/>
+            <rect x="514" y="510" width="428" height="10" rx="5" fill="#E9E2C8" stroke="var(--ink)" stroke-width="2"/>
+          </g>
+          <g id="rgUstE"></g>
+          <g id="rgPal"></g>
+          <g id="rgSung"></g>
+          <g id="rgIlet">
+            <rect x="436" y="336" width="130" height="118" rx="46" fill="#F7F2E0" stroke="var(--ink)" stroke-width="2"/>
+            <circle cx="472" cy="382" r="16" fill="#E8A0A0" stroke="#9C4A4A" stroke-width="2"/>
+            <circle cx="501" cy="372" r="17" fill="#E8A0A0" stroke="#9C4A4A" stroke-width="2"/>
+            <circle cx="530" cy="382" r="16" fill="#E8A0A0" stroke="#9C4A4A" stroke-width="2"/>
+            <circle cx="470" cy="422" r="9" fill="#A8CBE8" stroke="#2E86B8" stroke-width="2"/>
+            <circle cx="492" cy="428" r="9" fill="#A8CBE8" stroke="#2E86B8" stroke-width="2"/>
+            <circle cx="514" cy="428" r="9" fill="#A8CBE8" stroke="#2E86B8" stroke-width="2"/>
+            <circle cx="536" cy="422" r="9" fill="#A8CBE8" stroke="#2E86B8" stroke-width="2"/>
+            <text x="501" y="328" text-anchor="middle" font-size="14" font-weight="800" fill="var(--ink2)">İLETİM DEMETİ</text>
+            <text x="452" y="360" font-size="10.5" font-weight="800" fill="#9C4A4A">Ksilem (su ↑)</text>
+            <text x="452" y="448" font-size="10.5" font-weight="800" fill="#2E86B8">Floem (şeker)</text>
+          </g>
+          <circle cx="501" cy="428" r="26" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8" stroke-dasharray="4 4"/>
+          <path d="M501,502 L501,456" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="3 4" fill="none" opacity=".55"/>
+          <g id="epBottom"></g>
+          <rect x="493" y="504" width="16" height="34" rx="7" fill="var(--paper2)"/>
+          <g id="rgStoma">
+            <g id="gcL"><g transform="rotate(14 489 514)"><ellipse cx="489" cy="514" rx="15" ry="11" fill="#7FB56A" stroke="var(--ink)" stroke-width="2"/></g></g>
+            <g id="gcR"><g transform="rotate(-14 513 514)"><ellipse cx="513" cy="514" rx="15" ry="11" fill="#7FB56A" stroke="var(--ink)" stroke-width="2"/></g></g>
+            <text x="540" y="518" font-size="11" font-weight="800" fill="var(--ink2)">bekçi hücreleri</text>
+          </g>
+          <g id="co2Flow">
+            <circle r="4.5" fill="#2F8B4E"><animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M501,556 L501,458"/></circle>
+            <circle r="4.5" fill="#2F8B4E"><animateMotion dur="2.4s" begin="-0.8s" repeatCount="indefinite" path="M489,556 L489,458"/></circle>
+            <circle r="4.5" fill="#2F8B4E"><animateMotion dur="2.4s" begin="-1.6s" repeatCount="indefinite" path="M513,556 L513,458"/></circle>
+          </g>
+          <g id="vapFlow">
+            <circle r="3.5" fill="#8FCBE8"><animateMotion dur="2.8s" begin="-0.4s" repeatCount="indefinite" path="M516,458 L516,556"/></circle>
+            <circle r="3.5" fill="#8FCBE8"><animateMotion dur="2.8s" begin="-1.4s" repeatCount="indefinite" path="M524,458 L524,556"/></circle>
+            <circle r="3.5" fill="#8FCBE8"><animateMotion dur="2.8s" begin="-2.2s" repeatCount="indefinite" path="M532,458 L532,556"/></circle>
+          </g>
+          <text x="448" y="552" text-anchor="middle" font-size="12" font-weight="800" fill="var(--green-d)">CO₂ ↑</text>
+          <text x="560" y="552" text-anchor="middle" font-size="12" font-weight="800" fill="var(--water)">H₂O buharı ↓</text>
+
+          <g class="hspot" data-h="0" transform="translate(150,63)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">1</text></g>
+          <g class="hspot" data-h="1" transform="translate(300,99)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">2</text></g>
+          <g class="hspot" data-h="2" transform="translate(118,225)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">3</text></g>
+          <g class="hspot" data-h="3" transform="translate(230,270)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">4</text></g>
+          <g class="hspot" data-h="4" transform="translate(245,368)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">5</text></g>
+          <g class="hspot" data-h="5" transform="translate(556,346)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">6</text></g>
+          <g class="hspot" data-h="6" transform="translate(390,432)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">7</text></g>
+          <g class="hspot" data-h="7" transform="translate(462,528)"><circle r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink)">8</text></g>
+        </svg>
+      </div>
+      <aside class="stage-panel reveal d1">
+        <div class="panel-card">
+          <div class="panel-title">Bölge bilgi kartı</div>
+          <h4 id="leafT" style="font-family:'Fraunces',serif;font-size:21px;font-weight:800;margin:0 0 8px"></h4>
+          <p id="leafD" style="font-size:14.5px;color:var(--ink2);font-weight:500;margin:0"></p>
+        </div>
+        <div class="panel-card">
+          <div class="panel-title">Stoma deneyi</div>
+          <p style="font-size:13.5px;color:var(--ink2);font-weight:600;margin:0 0 4px">Bekçi hücreleri turgor kazanınca açıklık açılır; su kaybedince kapanır. Sen karar ver:</p>
+          <div class="play-row"><button class="btn primary" id="stomaBtn">Stomayı kapat</button></div>
+          <div class="eq-chip" id="stomaStat" style="margin-top:12px">Stoma AÇIK — bekçi hücreleri turgorda; CO₂ içeri giriyor, O₂ ve su buharı dışarı çıkıyor.</div>
+        </div>
+        <p class="panel-hint">İpucu: 8 numaralı nokta stomayı gösterir — kapalıyken partiküllerin durduğunu izle.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KROMATOGRAFİ ================= -->
+<section class="sec alt" id="krom">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">09 — Kromatografi</div>
+      <h2>Pigmentleri yarıştır</h2>
+      <p>Sınıftaki deneyin dijital ikizi: çözücü kâğıt boyunca yükselirken pigmentler çözünürlüklerine göre ayrışır. Bitince bantlara tıkla; <b>Rf</b> değeriyle tanış.</p>
+    </div>
+    <div class="krom-grid">
+      <div class="krom-wrap reveal">
+        <svg id="chromSvg" viewBox="0 0 560 430" role="img" aria-label="Kâğıt kromatografisi">
+          <rect x="120" y="86" width="320" height="326" rx="12" fill="none" stroke="var(--ink)" stroke-width="3"/>
+          <rect x="124" y="338" width="312" height="70" fill="#BFE0F0"/>
+          <text x="140" y="394" font-size="12.5" font-weight="800" fill="#2E86B8">ÇÖZÜCÜ</text>
+          <rect x="250" y="40" width="80" height="334" fill="#FBF7EA" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="254" y1="310" x2="326" y2="310" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/>
+          <text x="128" y="296" font-size="11" font-weight="800" fill="var(--ink2)">Başlangıç</text>
+          <text x="128" y="310" font-size="11" font-weight="800" fill="var(--ink2)">çizgisi</text>
+          <line id="chromFront" x1="240" y1="340" x2="342" y2="340" stroke="#2E86B8" stroke-width="2.5" stroke-dasharray="7 5" opacity="0"/>
+          <text id="chromFrontLbl" x="352" y="333" font-size="12" font-weight="800" fill="#2E86B8" opacity="0">Cephe</text>
+          <ellipse id="chromSpot" cx="290" cy="310" rx="27" ry="5" fill="#2E5E3A"/>
+          <g id="pigBands"></g>
+        </svg>
+      </div>
+      <aside class="stage-panel reveal d1">
+        <div class="panel-card">
+          <div class="panel-title">Kontrol</div>
+          <div class="play-row">
+            <button class="btn primary" id="chromRun">Çalıştır</button>
+            <button class="btn" id="chromReset">Sıfırla</button>
+          </div>
+          <div class="eq-chip" id="chromProg" style="margin-top:12px">Hazır</div>
+        </div>
+        <div class="panel-card" id="chromInfo"></div>
+        <div class="panel-card">
+          <div class="panel-title">Rf formülü</div>
+          <div class="eq-chip" style="margin-top:2px">Rf = bantın göçtüğü mesafe ÷ cephenin göçtüğü mesafe (daima &lt; 1)</div>
+          <p style="font-size:13px;color:var(--ink2);font-weight:600;margin-top:8px">Aynı çözücüde bir pigmentin Rf'si sabittir — bilinmeyen pigmentler bu yüzden Rf ile kimliklendirilir. Sıralama daima: karoten &gt; ksantofil &gt; klorofil a &gt; klorofil b.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BİLİM TARİHİ ================= -->
+<section class="sec" id="tarih">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-num">10 — Bilim Tarihi</div>
+      <h2>400 yıllık dedektiflik</h2>
+      <p>Fotosentez tek bir günde bulunmadı; her bilim insanı yapbozun bir parçasını yerine koydu.</p>
+    </div>
+    <div class="hist-grid reveal d1">
+      <div class="hist-card"><span class="hist-year">1642 · BELÇİKA</span><h3>Jan Van Helmont</h3><p>Söğüt fidanını beş yıl az toprakta büyüttü: 81 kg kazanmış, toprak yalnızca ~60 g kaybetmişti. "Kütle sudan geliyor" diye düşündü — sonucu yanlış, yöntemi devrimciydi.</p></div>
+      <div class="hist-card"><span class="hist-year">1771 · İNGİLTERE</span><h3>Joseph Priestley</h3><p>Kapalı kavanozda baygınlaştırdığı fareyi, kavanoza koyduğu nane bitkisi hayata döndürdü. Bitki "bozulan havayı onarıyordu" — onardığı gazın O₂ olduğunu sonra keşfetti.</p></div>
+      <div class="hist-card"><span class="hist-year">1779 · HOLLANDA</span><h3>Jan Ingenhousz</h3><p>Bitkinin havayı yalnızca ışık altında onardığını, karanlıkta bozduğunu gösterdi. Işığın fotosentezdeki merkezî rolü ilk kez kanıtlandı.</p></div>
+      <div class="hist-card"><span class="hist-year">1804 · İSVİÇRE</span><h3>Nicolas de Saussure</h3><p>Ölçtü ve denklemi tarttı: alınan CO₂, üretilen organik madde + O₂'ye eşit. Kütlenin yalnız suyun değil, CO₂'nin de katkısı olduğunu gösterdi.</p></div>
+      <div class="hist-card"><span class="hist-year">1883 · ALMANYA</span><h3>Th. W. Engelmann</h3><p>Su yosunu ipliğine oksijen seven bakteriler ekdi ve tayfi gezdirdi: bakteriler mavi ve kırmızı bölgelere üşüştü. İlk "spektrum deneyi" ile soğurulma zirveleri görünür oldu.</p></div>
+      <div class="hist-card"><span class="hist-year">1950'ler · ABD</span><h3>Melvin Calvin</h3><p>Radyoaktif ¹⁴C'li CO₂ ile yosunu saniyeler içinde durdurup karbonun izini sürdü; CO₂'den şekere giden yolu — Calvin döngüsünü — haritaladı. 1961 Nobel Kimya.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= QUIZ ================= -->
 <section class="sec" id="quiz">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="sec-num" style="justify-content:center">05 — Kendini Dene</div>
-      <h2>6 soruluk mini test</h2>
-      <p>Sahneyi izlediysen hepsini bilirsin. Her cevaptan sonra kısa bir açıklama gelir.</p>
+      <div class="sec-num" style="justify-content:center">11 — Kendini Dene</div>
+      <h2>10 soruluk süreli test</h2>
+      <p>Her soru için 25 saniyen var; seri yaparsan hız övgüsü kaparsın. Sonda tüm cevaplarını tek tek inceleyebilir, rekorunu kırabilirsin.</p>
     </div>
 
     <div class="quiz-box reveal d1">
       <div id="quizPlay">
         <div class="quiz-top">
-          <span class="quiz-count" id="quizCount">SORU 1 / 6</span>
+          <span class="quiz-count" id="quizCount">SORU 1 / 10</span>
           <div class="quiz-dots" id="quizDots"></div>
         </div>
-        <div class="quiz-q" id="quizQ"></div>
+        <div class="qtimer"><i id="qTimerIn"></i></div>
+        <div class="quiz-q" id="quizQ">Teste hazır mısın? Buraya kadar kaydır — test otomatik başlar.</div>
         <div class="quiz-opts" id="quizOpts"></div>
         <div class="quiz-why" id="quizWhy"></div>
         <div class="quiz-next" id="quizNextWrap">
@@ -714,6 +1109,7 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
+        <p class="qhint">Klavye: <b>1–4</b> cevap seçer · <b>Enter</b> sonraki soruya geçer</p>
       </div>
 
       <div id="quizResult" class="quiz-result" style="display:none">
@@ -722,11 +1118,12 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
             <circle cx="75" cy="75" r="60" fill="none" stroke="#E5DECA" stroke-width="12"/>
             <circle id="ringBar" cx="75" cy="75" r="60" fill="none" stroke="#2F8B4E" stroke-width="12" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="377" style="transition:stroke-dashoffset 1.2s ease"/>
           </svg>
-          <div class="ring-num"><span><span id="scoreNum">0</span><small>/6</small></span></div>
+          <div class="ring-num"><span><span id="scoreNum">0</span><small>/10</small></span></div>
         </div>
         <h3 id="resultTitle"></h3>
         <p id="resultText"></p>
-        <button class="btn primary" id="quizRestart">Baştan başla</button>
+        <div id="quizReview"></div>
+        <button class="btn primary" id="quizRestart" style="margin-top:16px">Baştan başla</button>
       </div>
     </div>
   </div>
@@ -738,229 +1135,362 @@ footer p{text-align:center;font-size:13.5px;color:#A8B5A6;font-weight:600;max-wi
   <div class="container">
     <div class="foot-eq">6 CO₂ + 6 H₂O + <span style="color:var(--sun)">ışık</span> → <span class="t-c6">C₆H₁₂O₆</span> + <span class="t-o2">6 O₂</span></div>
     <p>Ömer Taha Battal 10B 340</p>
+    <p style="margin-top:10px;font-size:12px">Ayrıntılı bir şeyler yaptım. Umarım olmuştur. ÖTB</p>
   </div>
 </footer>
 
 <script>
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
+var getVar=function(n,f){var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||f;};
+
+/* ---------- Tema ---------- */
+var themeBtn=$('themeBtn');
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('foto_theme',t);}catch(e){}}
+var th0='light';try{th0=localStorage.getItem('foto_theme')||'light';}catch(e){}
+setTheme(th0);
+themeBtn.addEventListener('click',function(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');});
+
+/* ---------- Reveal & nav ---------- */
+var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
+ $$('.reveal').forEach(function(el){io.observe(el);});
+
+var NAV_IDS=['sahne','denklem','karsilastirma','calvin','lab','gundong','spektrum','yaprak','krom','tarih','quiz'];
+var navAs=$$('#navLinks a');
+function navUpdate(){var y=window.scrollY+140;var cur=NAV_IDS[0];NAV_IDS.forEach(function(id){var el=$(id);if(el&&el.offsetTop<=y)cur=id;});navAs.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});}
+window.addEventListener('scroll',navUpdate,{passive:true});
+
 /* ---------- Sahne: aşama verileri ---------- */
-const STAGES = [
-  {n:"→", t:"Bütün resim", title:"Kloroplast: iki atölye, tek fabrika",
-   text:"Solda grana üzerinde ışığa bağlı reaksiyonlar, sağda stromada Calvin döngüsü çalışır. İkisini ATP, NADPH, ADP ve NADP⁺ taşıyıcıları birbirine bağlar.",
-   pts:["Işığa bağlı: H₂O + ışık → O₂ + ATP + NADPH","Calvin döngüsü: CO₂ + ATP + NADPH → şeker","Taşıyıcılar sürekli el değiştirir, döngü kesilmez."],
-   eq:"6CO₂ + 6H₂O + ışık → C₆H₁₂O₆ + 6O₂", g:[]},
-  {n:"1", t:"Işığın yakalanması", title:"Klorofil ışığı soğurur",
-   text:"Güneşten gelen ışık, grana'yı oluşturan tilakoid zarlarındaki klorofil moleküllerini uyarır. Klorofil özellikle kırmızı ve mavi ışığı soğurur; yeşili yansıttığı için yapraklar yeşil görünür.",
-   pts:["Enerji kaynağı: güneş ışığı","Pigmentler: klorofil a, klorofil b, karotenoidler","Mekân: tilakoid zarlar (grana)"],
-   eq:"Işık enerjisi → klorofilin elektronlarına aktarılır", g:["s1"]},
-  {n:"2", t:"Işığa bağlı reaksiyonlar", title:"Su ayrışır, oksijen doğar",
-   text:"Uyarılan elektronlar tilakoid zardaki taşıma zincirinde yürür. Su molekülleri fotolizle ayrışır: elektronlar zincire verilir, H⁺ iyonları birikir, oksijen gaz olarak dışarı çıkar.",
-   pts:["Fotoliz: 2H₂O → 4H⁺ + 4e⁻ + O₂","O₂ bizim için yan üründür — nefes kaynağımız","H⁺ gradyanı ATP sentezini çalıştıracak"],
-   eq:"2H₂O → O₂ + 4H⁺ + 4e⁻", g:["s2"]},
-  {n:"3", t:"Enerji taşıyıcıları", title:"Aküler dolar: ATP ve NADPH",
-   text:"Elektron taşıma zincirinin enerjisi ADP + Pᵢ molekülünü ATP'ye çevirir (kemiyozmoz). Zincirin sonunda NADP⁺, elektron ve H⁺ alarak NADPH olur. Bu iki dolu 'akü' Calvin döngüsüne fırlatılır.",
-   pts:["ADP + Pᵢ → ATP (akü şarj oluyor)","NADP⁺ + H⁺ + e⁻ → NADPH","Boş aküler (ADP, NADP⁺) granaya geri döner"],
-   eq:"Işık enerjisi → ATP + NADPH (kimyasal enerji)", g:["s3"]},
-  {n:"4", t:"Calvin döngüsü", title:"Stromada şeker inşaası",
-   text:"Stromada çalışan Calvin döngüsü, havadan gelen CO₂'yi yakalar ve ATP ile NADPH'ın enerjisiyle şeker üretir. Boşalan ADP ve NADP⁺ granaya dönerek yeniden şarj olur — sistem tamamlanır.",
-   pts:["Karbonu yakalayan enzim: Rubisco","3 tur → 1 G3P, 6 tur → 1 glikoz","Glikoz → nişasta, selüloz ve solunum yakıtı"],
-   eq:"6CO₂ + 18ATP + 12NADPH → C₆H₁₂O₆ + 18ADP + 12NADP⁺", g:["s4"]},
+var STAGES=[
+ {n:"→",t:"Bütün resim",g:"",title:"Kloroplast: iki atölye, tek fabrika",
+  text:"Solda grana (tilakoit yığınları), sağda stroma içinde Calvin döngüsü çalışıyor. Işığa bağlı reaksiyonlar enerjiyi ATP ve NADPH olarak paketler; ışıksız reaksiyonlar bu enerjiyle CO₂'yi şekerleştirir.",
+  points:["Grana: ışığın doğrudan kullanıldığı yer","Stroma: CO₂'nin şekere dönüştüğü yer","Aradaki oklar: ATP, NADPH ve geri dönüşler","Sahnedeki tüm parçalar birbirine bağlıdır"],
+  eq:"6 CO₂ + 6 H₂O + ışık → C₆H₁₂O₆ + 6 O₂"},
+ {n:"01",t:"Işık çarpar",g:"s1",title:"Işığa bağlı reaksiyonlar başlıyor",
+  text:"Fotonlar tilakoit zarlarındaki klorofille çarpışır; klorofil molekülleri uyarılır ve elektronları yüksek enerji seviyesine fırlar. Bu elektronlar, sonraki adımlarda enerji taşıyıcılarına dönüştürülecek.",
+  points:["Klorofil a ve b, kırmızı-mavi ışığı en çok soğurur","Tilakoit zarlar grana olarak yığınlaşmıştır","Işık enerjisi → elektron uyarılması"],
+  eq:"Işık enerjisi + klorofil → uyarılmış e⁻"},
+ {n:"02",t:"Su ayrışır",g:"s2",title:"Fotoliz: suyun parçalanması",
+  text:"Su molekülleri ışık enerjisiyle ayrışır: açığa çıkan elektronlar klorofilin kaybettiği elektronların yerine geçer, hidrojen iyonları lümende birikir, oksijen gazı atmosfere verilir.",
+  points:["2H₂O → O₂ + 4H⁺ + 4e⁻","Serbest kalan O₂ nefesimizdeki oksijendir","Elektron taşıma zinciri buradan beslenir"],
+  eq:"2H₂O → O₂ + 4H⁺ + 4e⁻"},
+ {n:"03",t:"Enerji paketlenir",g:"s3",title:"ATP ve NADPH üretiliyor",
+  text:"Elektronlar taşıyıcılar boyunca ilerlerken serbest bıraktığı enerji H⁺ gradyanı kurar; bu gradyan ATP sentezini, elektronların NADP⁺'ye ulaşması ise NADPH oluşumunu sağlar. Boşalan ADP+Pi ve NADP⁺ granaya geri döner.",
+  points:["ATP: hücrenin enerji parası","NADPH: yüklü elektron taşıyıcısı","Geri dönüş okları döngüyü sürekli kılar"],
+  eq:"ADP + Pi → ATP  •  NADP⁺ + H⁺ + e⁻ → NADPH"},
+ {n:"04",t:"Şeker kurulur",g:"s4",title:"Calvin döngüsü: CO₂'den glikoza",
+  text:"Stromada Rubisco enzimi CO₂'yi yakalar; ATP ve NADPH'ın enerjisiyle karbon, G3P üzerinden glikoza dönüştürülür. Her 6 turda 1 glikoz tamamlanır.",
+  points:["CO₂'nin karbonu şekerin iskeletidir","ATP + NADPH burada harcanır","Ürün: C₆H₁₂O₆"],
+  eq:"6 CO₂ + 18 ATP + 12 NADPH → C₆H₁₂O₆"}
 ];
-
-const scene = document.getElementById('scene');
-const stageList = document.getElementById('stageList');
-let curStage = 0;
-
-STAGES.forEach((s,i)=>{
-  const b=document.createElement('button');
-  b.className='stage-btn'+(i===0?' active':'');
-  b.innerHTML=`<span class="num">${s.n}</span>${s.t}`;
-  b.addEventListener('click',()=>{stopPlay();setStage(i);});
-  stageList.appendChild(b);
-});
-
-function setStage(i){
-  curStage=i;
-  const st=STAGES[i];
-  scene.querySelectorAll('[data-g]').forEach(el=>{
-    const on = i===0 || (el.dataset.g||'').split(' ').includes('s'+i);
-    el.classList.toggle('dimmed', !on);
-  });
-  document.querySelectorAll('.stage-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
-  document.getElementById('stTitle').textContent=st.title;
-  document.getElementById('stText').textContent=st.text;
-  document.getElementById('stPoints').innerHTML=st.pts.map(p=>`<li>${p}</li>`).join('');
-  document.getElementById('stEq').textContent=st.eq;
-}
-setStage(0);
-
-scene.querySelectorAll('[data-click]').forEach(el=>{
-  el.addEventListener('click',()=>{stopPlay();setStage(+el.dataset.click);});
-});
-
-/* Otomatik oynatma */
-const playBtn=document.getElementById('playBtn');
-let playTimer=null;
-function startPlay(){
-  playTimer=setInterval(()=>setStage((curStage+1)%5),7000);
-  document.getElementById('icPlay').style.display='none';
-  document.getElementById('icPause').style.display='';
-  document.getElementById('playLabel').textContent='Duraklat';
-  setStage(1);
-}
-function stopPlay(){
-  if(playTimer){clearInterval(playTimer);playTimer=null;}
-  document.getElementById('icPlay').style.display='';
-  document.getElementById('icPause').style.display='none';
-  document.getElementById('playLabel').textContent='Otomatik oynat';
-}
-playBtn.addEventListener('click',()=>playTimer?stopPlay():startPlay());
+var curStage=0,autoTimer=null,stageBtns=[];
+(function(){var list=$('stageList');STAGES.forEach(function(s,i){var b=document.createElement('button');b.className='stage-btn';b.innerHTML='<span class="num">'+s.n+'</span><span>'+s.t+'</span>';b.addEventListener('click',function(){stopAuto();setStage(i);});list.appendChild(b);stageBtns.push(b);});})();
+function setStage(i){curStage=i;stageBtns.forEach(function(b,k){b.classList.toggle('active',k===i);});var s=STAGES[i];
+ $('stTitle').textContent=s.title;$('stText').textContent=s.text;
+ $('stPoints').innerHTML=s.points.map(function(p){return '<li>'+p+'</li>';}).join('');
+ $('stEq').textContent=s.eq;
+ $$('#scene [data-g]').forEach(function(g){var on=!s.g||g.getAttribute('data-g').split(' ').indexOf(s.g)>-1;g.classList.toggle('dimmed',!on);});}
+ $$('#scene [data-click]').forEach(function(g){g.addEventListener('click',function(){stopAuto();setStage(parseInt(g.getAttribute('data-click'),10));});});
+function updPlay(){$('icPlay').style.display=autoTimer?'none':'block';$('icPause').style.display=autoTimer?'block':'none';$('playLabel').textContent=autoTimer?'Duraklat':'Otomatik oynat';}
+function stopAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null;updPlay();}}
+function startAuto(){stopAuto();autoTimer=setInterval(function(){setStage(curStage>=4?1:curStage+1);},6000);setStage(1);}
+ $('playBtn').addEventListener('click',function(){if(autoTimer){stopAuto();}else{startAuto();updPlay();}});
+setStage(0);updPlay();
 
 /* ---------- Denklem çipleri ---------- */
-document.querySelectorAll('.chip').forEach(c=>{
-  c.addEventListener('click',()=>{
-    const note=document.getElementById(c.dataset.note);
-    const wasOpen=note.classList.contains('open');
-    document.querySelectorAll('.chip-note').forEach(n=>n.classList.remove('open'));
-    if(!wasOpen)note.classList.add('open');
-  });
-});
+ $$('.chip').forEach(function(c){c.addEventListener('click',function(){var el=$(c.getAttribute('data-note'));var was=el.classList.contains('open');$$('.chip-note').forEach(function(x){x.classList.remove('open');});if(!was)el.classList.add('open');});});
 
-/* ---------- Calvin çarkı ---------- */
-const STEPS=[
-  {t:"1. Karbon Tutma",
-   d:"Döngünün girişinde Rubisco enzimi, havadan gelen bir CO₂ molekülünü 5 karbonlu RuBP'ye bağlar. Oluşan kararsız bileşik hemen bölünerek iki adet 3 karbonlu 3-PGA verir.",
-   eq:"CO₂ + RuBP (5C) → 2 × 3-PGA (3C)"},
-  {t:"2. İndirgeme",
-   d:"Işık reaksiyonlarından gelen ATP enerjiyi, NADPH ise elektronları verir. 3-PGA molekülleri indirgenerek enerji yüklü G3P şekerine dönüşür. Aküler boşalır: ADP ve NADP⁺ granaya döner.",
-   eq:"3-PGA + ATP + NADPH → G3P + ADP + NADP⁺"},
-  {t:"3. RuBP Yenilenmesi",
-   d:"Üretilen G3P'nin çoğu, ATP harcanarak tekrar RuBP'ye çevrilir; böylece döngü yeni bir CO₂'yi karşılamaya hazır olur. Küçük bir kısım G3P ise şeker sentez yoluna sapar.",
-   eq:"5 × G3P + 3 ATP → 3 × RuBP"},
+/* ---------- Calvin ---------- */
+var CSTEPS=[
+ {t:"1. Karbon tutulur (Fiksasyon)",txt:"Rubisco enzimi, havadan gelen CO₂'yi 5 karbonlu RuBP'ye bağlar. Oluşan kararsız 6 karbonlu bileşik anında ikiye bölünür: iki adet 3-PGA. Atmosferdeki karbon artık organik dünyanın parçasıdır.",eq:"RuBP (5C) + CO₂ → 2 × 3-PGA (3C)  •  Enzim: Rubisco"},
+ {t:"2. İndirgeme",txt:"Adım 1'de doğan 3-PGA, grana'dan gelen enerjiyle şekerlenir: ATP fosfat ekler, NADPH elektron verir. Ürün G3P'dir — üç karbonlu şeker iskeleti.",eq:"3-PGA + ATP + NADPH → G3P"},
+ {t:"3. RuBP yenilenir",txt:"Altı turda üretilen 12 G3P'den 2'si glikoza birleşir; 10'u ise ATP harcayarak yeniden RuBP'ye çevrilir. Böylece döngü, yeni CO₂'yi karşılamaya hazır olur.",eq:"5 × G3P + 3 ATP → 3 × RuBP"}
 ];
-let stepIdx=0, tur=0;
-function showStep(i){
-  document.getElementById('stepNo').textContent=i+1;
-  document.getElementById('stepTitle').textContent=STEPS[i].t;
-  document.getElementById('stepText').textContent=STEPS[i].d;
-  document.getElementById('stepEq').textContent=STEPS[i].eq;
-  [1,2,3].forEach(n=>{
-    document.getElementById('arc'+n).classList.toggle('active',n===i+1);
-    document.getElementById('node'+n).classList.toggle('active',n===i+1);
-  });
-}
-document.getElementById('stepNext').addEventListener('click',()=>{
-  stepIdx=(stepIdx+1)%3;
-  if(stepIdx===0){tur++;document.getElementById('turCount').textContent=tur;}
-  showStep(stepIdx);
-});
-document.getElementById('stepReset').addEventListener('click',()=>{
-  stepIdx=0;tur=0;document.getElementById('turCount').textContent=0;showStep(0);
-});
-showStep(0);
+var cStep=0,tur=0;
+function cShow(i){cStep=i;var s=CSTEPS[i];$('stepNo').textContent=i+1;$('stepTitle').textContent=s.t;$('stepText').textContent=s.txt;$('stepEq').textContent=s.eq;
+ for(var k=1;k<=3;k++){$('arc'+k).classList.toggle('active',k===i+1);$('node'+k).classList.toggle('active',k===i+1);}}
+ $('stepNext').addEventListener('click',function(){var n=cStep+1;if(n>2){n=0;tur++;$('turCount').textContent=tur;}cShow(n);});
+ $('stepReset').addEventListener('click',function(){tur=0;$('turCount').textContent='0';cShow(0);});
+cShow(0);
 
-/* ---------- Quiz ---------- */
-const QUIZ=[
-  {q:"Fotosentez hangi organelde gerçekleşir?",
-   o:["Mitokondri","Kloroplast","Çekirdek","Ribozom"],a:1,
-   w:"Fotosentez kloroplastta gerçekleşir: ışık reaksiyonları tilakoid zarlarında, Calvin döngüsü stromada yürür."},
-  {q:"Işığa bağlı reaksiyonlar kloroplastın tam olarak neresinde gerçekleşir?",
-   o:["Stromada","Grana'daki tilakoid zarlarında","Zarlar arası boşlukta","Sitoplazmada"],a:1,
-   w:"Klorofil pigmentleri tilakoid zarlarında bulunur; ışık burada yakalanır. Bu zar yığınlarına grana denir."},
-  {q:"Su molekülleri ışık enerjisiyle ayrıştırıldığında (fotoliz) hangi gaz açığa çıkar?",
-   o:["Karbondioksit (CO₂)","Azot (N₂)","Oksijen (O₂)","Hidrojen (H₂)"],a:2,
-   w:"Fotoliz: 2H₂O → 4H⁺ + 4e⁻ + O₂. Nefes aldığımız oksijen, suyun ayrışmasından gelen yan üründür."},
-  {q:"Calvin döngüsünü çalıştıran enerji taşıyıcıları hangileridir?",
-   o:["Glikoz ve nişasta","ADP ve NADP⁺","O₂ ve H₂O","ATP ve NADPH"],a:3,
-   w:"Işığa bağlı reaksiyonlarda üretilen ATP (enerji) ve NADPH (elektron), Calvin döngüsünde CO₂'yi şekere indirmek için harcanır."},
-  {q:"Işıktan bağımsız reaksiyonlar (Calvin döngüsü) kloroplastın hangi bölümünde gerçekleşir?",
-   o:["Grana'da","Tilakoid boşluğunda","Stromada","İç ve dış zar arasında"],a:2,
-   w:"Stroma, kloroplastın sıvı ortamıdır; CO₂'nin şekere dönüştüğü Calvin döngüsünün ev sahibidir."},
-  {q:"Bir glikoz molekülü (C₆H₁₂O₆) üretmek için Calvin döngüsü kaç tur döner?",
-   o:["2 tur","3 tur","6 tur","12 tur"],a:2,
-   w:"Her tur 1 CO₂ tutar. 6 karbonlu bir glikoz için 6 tur gerekir; her 3 turda 1 adet G3P açığa çıkar."},
+/* ---------- Değişken Laboratuvarı ---------- */
+var R={L:65,C:55,T:28,W:75};
+function tempF(T){if(T<=4)return 0;var f=Math.exp(-Math.pow(T-33,2)/242);if(T>40)f*=Math.max(0,1-(T-40)/6);return f;}
+function fotoRate(L,C,T,W){var Lr=L/(L+22),Cr=C/(C+26),Wr=W/(W+12);return Math.min(100,Lr*Cr*Wr*tempF(T)*100);}
+function limitOf(L,C,T,W){var a=[["Işık şiddeti",L/(L+22)],["CO₂ derişimi",C/(C+26)],["Su miktarı",W/(W+12)],["Sıcaklık",tempF(T)]];a.sort(function(x,y){return x[1]-y[1];});return a[0][0];}
+var rgLight=$('rgLight'),rgCO2=$('rgCO2'),rgTemp=$('rgTemp'),rgWater=$('rgWater');
+function syncLab(){R.L=+rgLight.value;R.C=+rgCO2.value;R.T=+rgTemp.value;R.W=+rgWater.value;
+ $('vLight').textContent=R.L+' %';$('vCO2').textContent=R.C+' %';$('vTemp').textContent=R.T+' °C';$('vWater').textContent=R.W+' %';
+ $('limitChip').textContent='Şu an sınırlayıcı faktör: '+limitOf(R.L,R.C,R.T,R.W);}
+[rgLight,rgCO2,rgTemp,rgWater].forEach(function(r){r.addEventListener('input',syncLab);});
+var PRESETS=[["Gece",0,55,16,70],["Şafak",18,55,18,75],["Öğle güneşi",92,62,31,80],["Gölge",28,58,24,78],["Sıcak ve kurak",88,35,43,14],["İdeal koşullar",90,90,32,90]];
+(function(){var w=$('presets');PRESETS.forEach(function(p){var b=document.createElement('button');b.className='preset';b.textContent=p[0];b.addEventListener('click',function(){rgLight.value=p[1];rgCO2.value=p[2];rgTemp.value=p[3];rgWater.value=p[4];syncLab();});w.appendChild(b);});})();
+var hist=[],o2c=0,glc=0,wc=0;
+setInterval(function(){var r=fotoRate(R.L,R.C,R.T,R.W);hist.push(r);if(hist.length>120)hist.shift();
+ $('labRate').textContent=String(Math.round(r));$('labBar').style.width=r+'%';
+ o2c+=r*0.012;glc+=r*0.002;wc+=r*0.012;
+ $('cO2').textContent=o2c.toFixed(1);$('cGlu').textContent=glc.toFixed(2);$('cH2O').textContent=wc.toFixed(1);
+ var dur=r<2?0:Math.max(0.45,2.6-r/60);
+ $$('#plantBub circle').forEach(function(b){if(dur===0){b.style.opacity='0';}else{b.style.opacity='1';b.style.animationDuration=dur+'s';}});
+ drawLab();
+},500);
+
+/* ---------- Gün döngüsü ---------- */
+function dayLight(t){var a=(t-6.2)/12.6;return(a<=0||a>=1)?0:Math.sin(Math.PI*a)*100;}
+function dayTemp(t){return 14+10*Math.exp(-Math.pow(t-15,2)/40.5);}
+function respR(t){return 16+0.35*(dayTemp(t)-14);}
+function drawDay(){if(!dctx)return;var W=$('dayChart').clientWidth,H=$('dayChart').clientHeight;dctx.clearRect(0,0,W,H);
+ var padL=40,padR=14,padT=12,padB=26,iw=W-padL-padR,ih=H-padT-padB;
+ var X=function(t){return padL+t/24*iw;},Y=function(v){return padT+ih-v/100*ih;};
+ dctx.strokeStyle='rgba(128,128,128,.25)';dctx.lineWidth=1;
+ [0,50,100].forEach(function(v){dctx.beginPath();dctx.moveTo(padL,Y(v));dctx.lineTo(W-padR,Y(v));dctx.stroke();dctx.fillStyle=getVar('--ink2','#666');dctx.font='10px "IBM Plex Mono",monospace';dctx.fillText(String(v),8,Y(v)+3);});
+ dctx.fillStyle=getVar('--ink2','#666');
+ [0,6,12,18,24].forEach(function(t){dctx.fillText((t<10?'0':'')+t+':00',X(t)-14,H-8);});
+ var pts=[],t;
+ for(t=0;t<=24.001;t+=0.1)pts.push([t,fotoRate(dayLight(t),58,dayTemp(t),72),respR(t)]);
+ var pp=pts.map(function(p){return [X(p[0]),Y(p[1]),Y(p[2])];});
+ var seg=[];
+ function flush(col){if(seg.length>1){dctx.beginPath();seg.forEach(function(p,i){if(i)dctx.lineTo(p[0],p[1]);else dctx.moveTo(p[0],p[1]);});for(var j=seg.length-1;j>=0;j--)dctx.lineTo(seg[j][0],seg[j][2]);dctx.closePath();dctx.fillStyle=col;dctx.fill();}seg=[];}
+ pp.forEach(function(p){if(p[1]<p[2])seg.push(p);else flush('rgba(58,160,92,.22)');});flush('rgba(58,160,92,.22)');
+ seg=[];pp.forEach(function(p){if(p[1]>p[2])seg.push(p);else flush('rgba(214,69,65,.18)');});flush('rgba(214,69,65,.18)');
+ dctx.beginPath();pp.forEach(function(p,i){if(i)dctx.lineTo(p[0],p[1]);else dctx.moveTo(p[0],p[1]);});dctx.strokeStyle=getVar('--green','#2F8B4E');dctx.lineWidth=3;dctx.lineJoin='round';dctx.stroke();
+ dctx.beginPath();pp.forEach(function(p,i){if(i)dctx.lineTo(p[0],p[2]);else dctx.moveTo(p[0],p[2]);});dctx.strokeStyle=getVar('--sun-d','#B57414');dctx.lineWidth=2.5;dctx.setLineDash([7,5]);dctx.stroke();dctx.setLineDash([]);
+ for(var i=1;i<pp.length;i++){if((pts[i-1][1]-pts[i-1][2])*(pts[i][1]-pts[i][2])<0){var cx=(pp[i-1][0]+pp[i][0])/2;dctx.strokeStyle=getVar('--ink2','#777');dctx.setLineDash([4,4]);dctx.beginPath();dctx.moveTo(cx,padT);dctx.lineTo(cx,padT+ih);dctx.stroke();dctx.setLineDash([]);dctx.fillStyle=getVar('--ink2','#777');dctx.font='bold 11px Manrope,sans-serif';dctx.fillText('K',cx-3,padT+10);}}
+ var cur=+$('dayTime').value;var xm=X(cur);var fv=fotoRate(dayLight(cur),58,dayTemp(cur),72),rv=respR(cur);
+ dctx.strokeStyle=getVar('--ink','#333');dctx.lineWidth=1.5;dctx.beginPath();dctx.moveTo(xm,padT);dctx.lineTo(xm,padT+ih);dctx.stroke();
+ dctx.fillStyle=getVar('--green','#2F8B4E');dctx.beginPath();dctx.arc(xm,Y(fv),5,0,7);dctx.fill();
+ dctx.fillStyle=getVar('--sun-d','#B57414');dctx.beginPath();dctx.arc(xm,Y(rv),5,0,7);dctx.fill();
+}
+function dayInfo(t){var L=dayLight(t),f=fotoRate(L,58,dayTemp(t),72),r=respR(t);
+ var hh=Math.floor(t),mm=Math.floor((t-hh)*60);
+ var clock=(hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm;
+ $('dayVal').textContent=clock;
+ var net;
+ if(f>r)net='Fotosentez > solunum → O₂ birikiyor, CO₂ tüketiliyor.';
+ else if(r>f)net=(L<=0.5)?'Fotosentez durdu; solunum sürüyor → O₂ tüketiliyor, CO₂ birikiyor.':'Solunum > fotosentez → net O₂ tüketimi.';
+ else net='Kompanzasyon noktası: fotosentez = solunum.';
+ $('dayInfo').textContent=clock+' · Işık %'+Math.round(L)+' · Foto '+Math.round(f)+' / Sol '+Math.round(r)+' → '+net;}
+function skyUpdate(t){var L=dayLight(t)/100;function mix(a,b){return Math.round(a+(b-a)*L);}
+ $('sky').style.background='rgb('+mix(14,132)+','+mix(26,196)+','+mix(46,236)+')';
+ var day=t>=5.9&&t<=19.1;
+ $('sunBall').style.display=day?'block':'none';$('moonBall').style.display=day?'none':'block';
+ if(day){var f=(t-5.9)/13.2;$('sunBall').style.left=(6+f*88)+'%';$('sunBall').style.top=(54-Math.sin(Math.PI*f)*40)+'%';}
+ else{var raw=t>=19.1?t-19.1:t+4.9;var fr=raw/10.8;$('moonBall').style.left=(8+fr*84)+'%';$('moonBall').style.top='26%';}}
+function setTime(t){$('dayTime').value=t;dayInfo(t);skyUpdate(t);drawDay();}
+var dayTimer=null;
+ $('dayPlay').addEventListener('click',function(){
+ if(dayTimer){clearInterval(dayTimer);dayTimer=null;$('dayPlay').textContent='Günü oynat';}
+ else{dayTimer=setInterval(function(){var t=+$('dayTime').value+0.08;if(t>24)t=0;setTime(t);},40);$('dayPlay').textContent='Durdur';}});
+ $('dayTime').addEventListener('input',function(){if(dayTimer){clearInterval(dayTimer);dayTimer=null;$('dayPlay').textContent='Günü oynat';}setTime(+$('dayTime').value);});
+
+/* ---------- Spektrum ---------- */
+function G(x,m,s){return Math.exp(-Math.pow(x-m,2)/(2*s*s));}
+var absA=function(l){return .92*G(l,430,20)+.80*G(l,662,14);};
+var absB=function(l){return .85*G(l,453,16)+.65*G(l,643,11);};
+var absC=function(l){return .55*G(l,475,42)+.25*G(l,430,35);};
+function wl2rgb(w){w=Math.max(380,Math.min(750,w));var r=0,g=0,b=0;
+ if(w<440){r=(440-w)/60;b=1;}else if(w<490){g=(w-440)/50;b=1;}
+ else if(w<510){g=1;b=(510-w)/20;}else if(w<580){r=(w-510)/70;g=1;}
+ else if(w<645){r=1;g=(645-w)/65;}else{r=1;}
+ var f=1;if(w<420)f=.35+.65*(w-380)/40;else if(w>700)f=.35+.65*(750-w)/50;
+ function c(v){return Math.round(255*Math.pow(Math.max(0,v)*f,.8));}
+ return[c(r),c(g),c(b)];}
+function absTot(l){var a=0;if($('cbA').checked)a+=absA(l);if($('cbB').checked)a+=absB(l);if($('cbCar').checked)a+=absC(l);return Math.min(.97,a);}
+function drawSpec(){if(!sctx)return;var cv=$('specChart'),W=cv.clientWidth,H=cv.clientHeight;sctx.clearRect(0,0,W,H);
+ var padL=40,padR=12,padT=12,padB=22,iw=W-padL-padR,ih=H-padT-padB;
+ var X=function(l){return padL+(l-380)/370*iw;},Y=function(a){return padT+ih-a*ih;};
+ var l;
+ for(l=380;l<=750;l+=2){var c=wl2rgb(l);sctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+',.14)';sctx.fillRect(X(l)-1,padT,2.4,ih);}
+ sctx.strokeStyle='rgba(128,128,128,.3)';sctx.setLineDash([3,4]);sctx.lineWidth=1;
+ [400,450,500,550,600,650,700].forEach(function(v){sctx.beginPath();sctx.moveTo(X(v),padT);sctx.lineTo(X(v),padT+ih);sctx.stroke();});
+ sctx.setLineDash([]);
+ sctx.fillStyle=getVar('--ink2','#666');sctx.font='10px "IBM Plex Mono",monospace';
+ [0,.5,1].forEach(function(v){sctx.fillText(Math.round(v*100)+'%',8,Y(v)+3);});
+ [400,450,500,550,600,650,700].forEach(function(v){sctx.fillText(String(v),X(v)-12,H-8);});
+ function curve(fn,col,w){sctx.beginPath();for(var x=380;x<=750;x+=3){var y=Y(fn(x));if(x===380)sctx.moveTo(X(x),y);else sctx.lineTo(X(x),y);}sctx.strokeStyle=col;sctx.lineWidth=w;sctx.lineJoin='round';sctx.stroke();}
+ if($('cbA').checked)curve(absA,'#3AA05C',2.5);
+ if($('cbB').checked)curve(absB,'#8CC63F',2.5);
+ if($('cbCar').checked)curve(absC,'#E9A13B',2.5);
+ if($('cbT').checked)curve(absTot,getVar('--ink','#17352A'),3.5);
+ var lam=+$('lam').value;var ym=Y(absTot(lam));
+ sctx.strokeStyle='#B57414';sctx.setLineDash([5,4]);sctx.beginPath();sctx.moveTo(X(lam),padT);sctx.lineTo(X(lam),padT+ih);sctx.stroke();sctx.setLineDash([]);
+ sctx.fillStyle=getVar('--sun','#E9A13B');sctx.strokeStyle=getVar('--ink','#17352A');sctx.lineWidth=2;
+ sctx.beginPath();sctx.arc(X(lam),ym,6,0,7);sctx.fill();sctx.stroke();
+}
+function updateSpec(){var l=+$('lam').value;$('lamVal').textContent=l+' nm';drawSpec();
+ var a=absTot(l);$('absVal').textContent='λ='+l+' nm → Soğurulan %'+Math.round(a*100)+' · Yansıyan %'+(100-Math.round(a*100));
+ var c=wl2rgb(l);$('lamChip').style.background='rgb('+c[0]+','+c[1]+','+c[2]+')';
+ var base=[63,178,86],dark=[24,40,30];
+ var col=c.map(function(v,i){return Math.round((base[i]*0.3+v*0.7)*(1-a)+dark[i]*a);});
+ $('leafMono').setAttribute('fill','rgb('+col[0]+','+col[1]+','+col[2]+')');
+ $('leafMonoT').textContent='Sadece '+l+' nm ışıkta';
+ var h;
+ if(l>=500&&l<=580)h='Yeşil bölge: en düşük soğurulma. Işık yansıdığı için yaprak yeşil görünür — ama fotosentez bu renkte yavaşlar.';
+ else if(l<460)h='Mor-mavi bölge: klorofilin ilk zirvesi. Enerjisi yüksek fotonlar — fotosentez çok hızlı.';
+ else if(l>=630&&l<=690)h='Kırmızı bölge: ikinci soğurulma zirvesi. Fotosentez yine çok verimli.';
+ else if(l>700)h='Kırmızı ötesi: foton enerjisi artık yetersiz — yaprak karanlıkta gibi davranır.';
+ else h='Turuncu/sarı bölge: orta düzeyde soğurulur; karotenoid pigmentler burada devreye girer.';
+ $('specHint').textContent=h;}
+ $('lam').addEventListener('input',updateSpec);
+['cbA','cbB','cbCar','cbT'].forEach(function(id){$(id).addEventListener('change',updateSpec);});
+ $$('#lamPresets .preset').forEach(function(b){b.addEventListener('click',function(){$('lam').value=b.getAttribute('data-l');updateSpec();});});
+
+/* ---------- Yaprak kesiti ---------- */
+var LEAF=[
+ {t:"1 · Kütikula",d:"Yaprak en dışındaki mumsu koruyucu tabaka. Su kaybını azaltır, yaprağı hasarlardan korur; ışığın çoğunu geçirir."},
+ {t:"2 · Üst epidermis",d:"Şeffaf, kloroplastsız hücreler. Işığı alttaki fotosentez dokularına zarar görmeden geçirir; yaprağın dış yüzeyini örter."},
+ {t:"3 · Palizat parankiması",d:"Dizili, silindirik ve kloroplast bakımından en zengin doku — fotosentezin ana fabrikası. Üst yüzeye yakın olduğu için ışığı en çok burası yakalar."},
+ {t:"4 · Kloroplast",d:"Yeşil renkli organel; içinde klorofil pigmenti, tilakoit zarlar (grana) ve stroma bulunur. Işığa bağlı ve ışıksız reaksiyonların ikisi de burada gerçekleşir."},
+ {t:"5 · Sünger parankiması",d:"Düzensiz dizilmiş hücreler; aralarında bol hava boşluğu vardır. Gaz alışverişini kolaylaştırır, kloroplast taşıyarak fotosenteze katkıda bulunur."},
+ {t:"6 · İletim demeti (damar)",d:"Ksilem kökten gelen su ve mineralleri yaprağa taşır; floem fotosentez ürününü (sükrozu) bitkinin diğer kısımlarına götürür. Yaprak damarları, bitkinin yol ağıdır."},
+ {t:"7 · Hava boşlukları",d:"Sünger dokunun araları; CO₂ buradan hücrelere difüzyonla yayılır, O₂ ve su buharı ters yönde stomaya ulaşır."},
+ {t:"8 · Stoma ve bekçi hücreleri",d:"Alt epidermiste açılıp kapanan gözenekler. Bekçi (kapatıcı) hücreler turgor kazanınca açıklık açılır: CO₂ girer, O₂ ve su buharı çıkar. Gece veya su stresinde kapanır."}
 ];
-let qi=0,score=0,answered=false;
-const dotsEl=document.getElementById('quizDots');
-QUIZ.forEach(()=>{const d=document.createElement('span');d.className='qdot';dotsEl.appendChild(d);});
+var LREG={0:'rgKut',1:'rgUstE',2:'rgPal',4:'rgSung',5:'rgIlet',7:'rgStoma'};
+(function(){
+ var h='',k,i,d='';
+ for(k=0;k<7;k++)h+='<rect x="'+(62+k*126)+'" y="70" width="122" height="58" rx="14" fill="#F4EFDC" stroke="var(--ink)" stroke-width="2"/>';
+ $('rgUstE').innerHTML=h;
+ h='';d='';
+ for(k=0;k<9;k++){var x=74+k*96;h+='<rect x="'+x+'" y="140" width="76" height="178" rx="24" fill="#C9E4BC" stroke="var(--ink)" stroke-width="2"/>';
+  [[16,170],[60,170],[16,270],[60,270]].forEach(function(o){d+='<ellipse cx="'+(x+o[0])+'" cy="'+o[1]+'" rx="7" ry="5" fill="#3E9B4F" stroke="#1C5E38" stroke-width="1.2"/>';});}
+ $('rgPal').innerHTML=h+d;
+ h='';
+ var sp=[[100,372],[170,418],[245,368],[320,420],[385,470],[615,470],[650,418],[725,368],[800,420],[872,372]];
+ sp.forEach(function(c,i){h+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="'+(29+(i%3)*4)+'" fill="#DCEAC6" stroke="var(--ink)" stroke-width="2"/>';});
+ $('rgSung').innerHTML=h;
+ h='';
+ for(k=0;k<7;k++){if(k===3)continue;h+='<rect x="'+(62+k*126)+'" y="452" width="122" height="56" rx="14" fill="#F4EFDC" stroke="var(--ink)" stroke-width="2"/>';}
+ h+='<rect x="440" y="452" width="50" height="56" rx="12" fill="#F4EFDC" stroke="var(--ink)" stroke-width="2"/><rect x="512" y="452" width="50" height="56" rx="12" fill="#F4EFDC" stroke="var(--ink)" stroke-width="2"/>';
+ $('epBottom').innerHTML=h;
+})();
+function leafInfo(k){$('leafT').textContent=LEAF[k].t;$('leafD').textContent=LEAF[k].d;
+ $$('#leafSvg .hlG').forEach(function(e){e.classList.remove('hlG');});
+ if(LREG[k]&&$(LREG[k]))$(LREG[k]).classList.add('hlG');
+ $$('#leafSvg .hspot').forEach(function(g){g.classList.toggle('hsel',parseInt(g.getAttribute('data-h'),10)===k);});}
+ $$('#leafSvg .hspot').forEach(function(g){g.addEventListener('click',function(){leafInfo(parseInt(g.getAttribute('data-h'),10));});});
+var stomaOpen=true;
+ $('stomaBtn').addEventListener('click',function(){stomaOpen=!stomaOpen;
+ $('gcL').style.transform=stomaOpen?'translateX(0px)':'translateX(10px)';
+ $('gcR').style.transform=stomaOpen?'translateX(0px)':'translateX(-10px)';
+ $('co2Flow').style.opacity=stomaOpen?'1':'0';$('vapFlow').style.opacity=stomaOpen?'1':'0';
+ $('stomaBtn').textContent=stomaOpen?'Stomayı kapat':'Stomayı aç';
+ $('stomaStat').textContent=stomaOpen?'Stoma AÇIK — bekçi hücreleri turgorda; CO₂ içeri giriyor, O₂ ve su buharı dışarı çıkıyor.':'Stoma KAPALI — bekçi hücreleri su kaybedip gevşedi. Su kaybı engellenir ama CO₂ girişi de durur (gece / kuraklık).';});
 
-function renderQ(){
-  answered=false;
-  document.getElementById('quizCount').textContent=`SORU ${qi+1} / ${QUIZ.length}`;
-  document.getElementById('quizQ').textContent=QUIZ[qi].q;
-  document.getElementById('quizWhy').classList.remove('show');
-  document.getElementById('quizNextWrap').classList.remove('show');
-  [...dotsEl.children].forEach((d,i)=>d.classList.toggle('now',i===qi));
-  const opts=document.getElementById('quizOpts');opts.innerHTML='';
-  QUIZ[qi].o.forEach((o,i)=>{
-    const b=document.createElement('button');b.className='qopt';
-    b.innerHTML=`<span class="abc">${'ABCD'[i]}</span>${o}`;
-    b.addEventListener('click',()=>pick(i,b));
-    opts.appendChild(b);
-  });
-}
-function pick(i,btn){
-  if(answered)return;answered=true;
-  const Q=QUIZ[qi];
-  document.querySelectorAll('.qopt').forEach((b,bi)=>{
-    b.disabled=true;
-    if(bi===Q.a)b.classList.add('correct');
-    else if(bi===i)b.classList.add('wrong');
-    else b.classList.add('faded');
-  });
-  const ok=i===Q.a; if(ok)score++;
-  dotsEl.children[qi].classList.remove('now');
-  dotsEl.children[qi].classList.add(ok?'done-ok':'done-no');
-  const why=document.getElementById('quizWhy');
-  why.innerHTML=(ok?'<b style="color:var(--green-d)">Doğru!</b> ':'<b style="color:var(--red)">Yanlış.</b> ')+Q.w;
-  why.classList.add('show');
-  document.getElementById('quizNext').textContent=qi===QUIZ.length-1?'Sonucu gör':'Sonraki soru';
-  document.getElementById('quizNextWrap').classList.add('show');
-}
-document.getElementById('quizNext').addEventListener('click',()=>{
-  qi++;
-  if(qi<QUIZ.length)renderQ();else showResult();
-});
-function showResult(){
-  document.getElementById('quizPlay').style.display='none';
-  document.getElementById('quizResult').style.display='';
-  document.getElementById('scoreNum').textContent=score;
-  setTimeout(()=>{
-    document.getElementById('ringBar').style.strokeDashoffset=377-(377*score/6);
-  },80);
-  const T=document.getElementById('resultTitle'),X=document.getElementById('resultText');
-  if(score===6){T.textContent='Kusursuz!';X.textContent='Işığı şekere çevirmenin bütün sırrını çözdün. Bitkiler seninle gurur duyar.';}
-  else if(score>=4){T.textContent='Çok iyi!';X.textContent='Neredeyse tamam — kaçırdığın soruların açıklamalarını oku, bir tur daha dönmeye ne dersin?';}
-  else{T.textContent='Döngüde bir tur eksik';X.textContent='Canlı sahneyi tekrar oynat: dört aşamayı izlemek cevapları zihnine yerleştirecek.';}
-}
-document.getElementById('quizRestart').addEventListener('click',()=>{
-  qi=0;score=0;
-  [...dotsEl.children].forEach(d=>d.className='qdot');
-  document.getElementById('quizResult').style.display='none';
-  document.getElementById('quizPlay').style.display='';
-  document.getElementById('ringBar').style.strokeDashoffset=377;
-  renderQ();
-});
-renderQ();
+/* ---------- Kromatografi ---------- */
+var PIGS=[
+ {n:"Karoten",c:"#F28C28",rf:.95,d:"Turuncu tonlu karotenoid. Çözücüde en çok çözündüğü için cepheye en yakın banda göçer; Rf değeri en yüksektir."},
+ {n:"Ksantofil",c:"#E8C63F",rf:.71,d:"Sarı renkli karotenoid. Yaprakta klorofillerin altında gizlidir; sonbaharda klorofil parçalanınca görünür hale gelir."},
+ {n:"Klorofil a",c:"#2FA07A",rf:.60,d:"Mavi-yeşil ana fotosentez pigmenti. Reaksiyon merkezlerinde (P680, P700) görev yapar; Rf değeri orta seviyededir."},
+ {n:"Klorofil b",c:"#9CCB3B",rf:.32,d:"Sarı-yeşil yardımcı pigment. Topladığı ışık enerjisini klorofil a'ya aktarır; çözünürlüğü düşük olduğu için başlangıç çizgisine yakın kalır."}
+];
+var ORIG=310,chromAnim=null,chromDone=false;
+function chromBuild(){var g=$('pigBands');
+ g.innerHTML=PIGS.map(function(p,i){return '<g class="pband" data-i="'+i+'"><rect id="pb'+i+'" x="254" y="'+(ORIG-4)+'" width="72" height="8" rx="4" fill="'+p.c+'" stroke="rgba(23,53,42,.4)" stroke-width="1" opacity="0"/><text id="pt'+i+'" x="342" y="'+(ORIG+3)+'" font-size="12" font-weight="700" fill="var(--ink)" opacity="0">'+p.n+' · Rf≈'+p.rf.toFixed(2)+'</text></g>';}).join('');
+ $$('#pigBands .pband').forEach(function(b,i){b.addEventListener('click',function(){if(chromDone)chromInfo(i);});});}
+function chromApply(p){var fy=340-260*p;var fd=Math.max(0,260*p-30);
+ var fr=$('chromFront');fr.setAttribute('y1',fy);fr.setAttribute('y2',fy);fr.style.opacity=p>0.02?'1':'0';
+ var fl=$('chromFrontLbl');fl.setAttribute('y',fy-7);fl.style.opacity=p>0.02?'1':'0';
+ PIGS.forEach(function(pg,i){var dist=pg.rf*fd;var y=Math.max(74,ORIG-dist);
+  var r=$('pb'+i);r.setAttribute('y',y-4);r.style.opacity=dist>3?'1':'0';
+  var t=$('pt'+i);t.setAttribute('y',y+4);t.style.opacity=(p>=1&&dist>3)?'1':'0';});
+ $('chromSpot').style.opacity=p<0.06?'1':'0';
+ $('chromProg').textContent='Çözücü cephesi: %'+Math.round(p*100)+(p>=1?' — tamamlandı':'');}
+function chromInfoDefault(){$('chromInfo').innerHTML='<h4 style="font-family:Fraunces,serif;font-size:19px;font-weight:800;margin:0 0 6px">Kromatogram bekleniyor</h4><p style="font-size:14px;color:var(--ink2);font-weight:600">“Çalıştır”a bas; çözücü yükselirken pigmentler çözünürlüklerine göre ayrışacak. Bantlar belirlenince üzerlerine tıkla.</p>';}
+function chromInfo(i){var p=PIGS[i];$('chromInfo').innerHTML='<h4 style="font-family:Fraunces,serif;font-size:19px;font-weight:800;margin:0 0 6px"><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:'+p.c+';border:2px solid var(--ink);margin-right:7px;vertical-align:-1px"></span>'+p.n+'</h4><p style="font-size:14px;color:var(--ink2);font-weight:600">'+p.d+'</p><div class="eq-chip" style="margin-top:10px">Rf ≈ '+p.rf.toFixed(2)+' · Yüksek Rf = çözücüde çok çözünen = hızlı göç</div>';}
+ $('chromRun').addEventListener('click',function(){
+ if(chromAnim)return;chromDone=false;chromReset(false);
+ var t0=performance.now(),DUR=7000;
+ var frame=function(now){var p=Math.min(1,(now-t0)/DUR);chromApply(p);
+  if(p<1){chromAnim=requestAnimationFrame(frame);}
+  else{chromAnim=null;chromDone=true;chromInfo(0);}};
+ chromAnim=requestAnimationFrame(frame);});
+function chromReset(msg){if(chromAnim){cancelAnimationFrame(chromAnim);chromAnim=null;}chromDone=false;chromApply(0);
+ if(msg!==false){$('chromProg').textContent='Hazır — “Çalıştır”a bas';chromInfoDefault();}}
+ $('chromReset').addEventListener('click',function(){chromReset();});
+chromBuild();chromApply(0);chromInfoDefault();$('chromProg').textContent='Hazır — “Çalıştır”a bas';
 
-/* ---------- Scroll reveal + nav aktif ---------- */
-const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
-}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* ---------- Quiz 2.0 ---------- */
+var QUIZ=[
+ {q:"Fotosentez hangi organelde gerçekleşir?",o:["Mitokondri","Kloroplast","Çekirdek","Ribozom"],a:1,e:"Fotosentezin merkezi kloroplasttır; mitokondri ise hücresel solunumla çalışır."},
+ {q:"Işığa bağlı reaksiyonlar kloroplastın hangi bölgesinde gerçekleşir?",o:["Stroma","Dış zar","Tilakoit zarlar (grana)","Sitoplazma"],a:2,e:"Klorofil pigmentleri tilakoit zarların içindedir; ışık burada yakalanır."},
+ {q:"Calvin döngüsü (ışıksız evre) nerede işler?",o:["Grana içinde","Tilakoit lümeninde","Stromada","Hücre zarında"],a:2,e:"Stroma, enzimlerle dolu sıvı ortamdır; CO₂ burada şekere dönüşür."},
+ {q:"Suyun ışık enerjisiyle ayrıştırılmasına ne ad verilir?",o:["Hidroliz","Fotoliz","Dehidrasyon","Fosforilasyon"],a:1,e:"Fotoliz: 2H₂O → O₂ + 4H⁺ + 4e⁻. O₂ bu reaksiyondan doğar."},
+ {q:"Fotosentezde açığa çıkan O₂ hangi girdiden gelir?",o:["CO₂'den","Glikozdan","ATP'den","H₂O'dan"],a:3,e:"Fotolizde suyun parçalanmasıyla açığa çıkar; CO₂'nin oksijeni ise şekere gider."},
+ {q:"CO₂'yi RuBP'ye bağlayan enzim hangisidir?",o:["Rubisco","ATP sentaz","Amilaz","Katalaz"],a:0,e:"Rubisco, Calvin döngüsünün ilk adımını katalizleyen kilit enzimdir."},
+ {q:"1 glikoz (C₆H₁₂O₆) için Calvin döngüsü kaç tur atar?",o:["3 tur","6 tur","12 tur","18 tur"],a:1,e:"Her tur 1 CO₂ tutar; 6 karbonlu glikoz için 6 tur — yani 18 ATP ve 12 NADPH — gerekir."},
+ {q:"Işıktan bağımsız reaksiyonların enerji kaynağı nedir?",o:["Doğrudan güneş ışığı","ATP ve NADPH","Glikoz","O₂"],a:1,e:"Grana'da üretilen ATP ve NADPH, stromada harcanır."},
+ {q:"Yaprak gözümüze neden yeşil görünür?",o:["Klorofil yeşil ışığı soğurur","Klorofil yeşil ışığı yansıtır","Yaprak yeşil ışık üretir","Kloroplast renksizdir"],a:1,e:"Mavi ve kırmızı soğurulur; yeşil bant yansıtılır — gördüğümüz renk yansıyandır."},
+ {q:"Kromatogramda başlangıç çizgisinden en uzağa (en büyük Rf) hangi pigment ulaşır?",o:["Klorofil a","Klorofil b","Karoten","Ksantofil"],a:2,e:"Karoten, çözücüde en çok çözündüğü için en hızlı göçer (Rf≈0,95)."}
+];
+var QLEN=QUIZ.length,QT=25;
+var qi=0,score=0,streak=0,bestStreak=0,locked=false,tInt=null,tLeft=QT,REV=[],quizStarted=false;
+function dotsInit(){$('quizDots').innerHTML=QUIZ.map(function(){return '<span class="qdot"></span>';}).join('');}
+function startTimer(){stopTimer();tLeft=QT;var bar=$('qTimerIn');bar.classList.remove('low');bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+QT+'s linear';bar.style.width='0%';
+ tInt=setInterval(function(){tLeft-=0.1;if(tLeft<5)bar.classList.add('low');if(tLeft<=0){stopTimer();answer(-1);}},100);}
+function stopTimer(){if(tInt){clearInterval(tInt);tInt=null;}}
+function drawQ(){locked=false;var q=QUIZ[qi];
+ $('quizCount').textContent='SORU '+(qi+1)+' / '+QLEN;
+ $$('#quizDots .qdot').forEach(function(d,k){d.classList.toggle('now',k===qi);});
+ $('quizQ').textContent=q.q;
+ $('quizOpts').innerHTML=q.o.map(function(t,i){return '<button class="qopt" data-i="'+i+'"><span class="abc">'+'ABCD'[i]+'</span><span>'+t+'</span></button>';}).join('');
+ $$('#quizOpts .qopt').forEach(function(b){b.addEventListener('click',function(){answer(parseInt(b.getAttribute('data-i'),10));});});
+ $('quizWhy').className='quiz-why';$('quizWhy').innerHTML='';
+ $('quizNextWrap').classList.remove('show');
+ startTimer();}
+function answer(i){if(locked||!quizStarted)return;locked=true;stopTimer();
+ var q=QUIZ[qi],ok=(i===q.a);
+ $$('#quizOpts .qopt').forEach(function(b,k){b.disabled=true;if(k===q.a)b.classList.add('correct');else if(k===i)b.classList.add('wrong');else b.classList.add('faded');});
+ if(ok){score++;streak++;bestStreak=Math.max(bestStreak,streak);}else streak=0;
+ $$('#quizDots .qdot')[qi].classList.add(ok?'done-ok':'done-no');
+ REV[qi]={pick:(i>=0?q.o[i]:'(süre doldu)'),ok:ok};
+ var w=$('quizWhy');w.className='quiz-why show';
+ w.innerHTML=(ok?'<b>Doğru!</b> ':(i<0?'<b>Süre doldu!</b> ':'<b>Yanlış.</b> '))+q.e+(streak>1?' <b style="color:var(--sun-d)">· '+streak+' soruluk seri!</b>':'');
+ $('quizNext').textContent=(qi===QLEN-1)?'Sonuçları gör':'Sonraki soru';
+ $('quizNextWrap').classList.add('show');}
+function qNext(){qi++;if(qi>=QLEN)qEnd();else drawQ();}
+function qEnd(){$('quizPlay').style.display='none';$('quizResult').style.display='block';
+ var pct=Math.round(score/QLEN*100);
+ $('scoreNum').textContent=score;
+ $('ringBar').style.strokeDashoffset=String(377-377*pct/100);
+ var best=0;try{best=parseInt(localStorage.getItem('foto_best')||'0',10)||0;}catch(e){}
+ var rec=score>best;if(rec){try{localStorage.setItem('foto_best',String(score));}catch(e){}}
+ $('resultTitle').textContent=pct===100?'Kusursuz! Fotosentez ustası':(pct>=80?'Harika iş!':(pct>=50?'İyi başlangıç':'Tekrar denemeye ne dersin?'));
+ $('resultText').innerHTML='Puan: <b>'+score+'/'+QLEN+'</b> · En uzun seri: <b>'+bestStreak+'</b> · Rekor: <b>'+Math.max(best,score)+'/'+QLEN+'</b>'+(rec?' · <b style="color:var(--sun-d)">Yeni rekor!</b>':'');
+ $('quizReview').innerHTML=QUIZ.map(function(q,k){var r=REV[k];return '<div class="rev '+(r&&r.ok?'ok':'no')+'"><div class="rev-q"><span class="rev-n">'+(k+1)+'</span>'+q.q+'</div><div class="rev-a">Senin cevabın: <b>'+(r?r.pick:'—')+'</b>'+(r&&!r.ok?' · Doğrusu: <b>'+q.o[q.a]+'</b>':'')+'</div></div>';}).join('');}
+ $('quizNext').addEventListener('click',qNext);
+ $('quizRestart').addEventListener('click',function(){qi=0;score=0;streak=0;bestStreak=0;REV=[];$('quizPlay').style.display='block';$('quizResult').style.display='none';dotsInit();drawQ();});
+var qIO=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&!quizStarted){quizStarted=true;dotsInit();drawQ();qIO.disconnect();}});},{threshold:.3});
+qIO.observe($('quizPlay'));
+document.addEventListener('keydown',function(e){
+ if(!quizStarted)return;
+ if($('quizResult').style.display==='block')return;
+ if(e.key>='1'&&e.key<='4'){var b=$$('#quizOpts .qopt')[parseInt(e.key,10)-1];if(b&&!locked)b.click();}
+ else if(e.key==='Enter'&&locked&&$('quizNextWrap').classList.contains('show')){qNext();}});
 
-const secs=document.querySelectorAll('section[id]');
-const links=document.querySelectorAll('#navLinks a');
-const navIO=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){
-    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
-  }
-}),{rootMargin:'-40% 0px -55% 0px'});
-secs.forEach(s=>navIO.observe(s));
+/* ---------- Canvases ---------- */
+var lctx=null,dctx=null,sctx=null;
+function setupCanvas(c){var dpr=Math.min(2,window.devicePixelRatio||1);var w=c.clientWidth,h=c.clientHeight;c.width=Math.max(10,w*dpr);c.height=Math.max(10,h*dpr);var x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);return x;}
+function drawLab(){if(!lctx)return;var W=$('labChart').clientWidth,H=$('labChart').clientHeight;lctx.clearRect(0,0,W,H);
+ var padL=34,padR=12,padT=10,padB=18,iw=W-padL-padR,ih=H-padT-padB;
+ var Y=function(v){return padT+ih-v/100*ih;};
+ lctx.strokeStyle='rgba(128,128,128,.25)';lctx.lineWidth=1;
+ [0,50,100].forEach(function(v){lctx.beginPath();lctx.moveTo(padL,Y(v));lctx.lineTo(W-padR,Y(v));lctx.stroke();lctx.fillStyle=getVar('--ink2','#666');lctx.font='10px "IBM Plex Mono",monospace';lctx.fillText(String(v),6,Y(v)+3);});
+ lctx.fillStyle=getVar('--ink2','#666');lctx.fillText('son ~60 sn',W-padR-70,H-5);
+ if(hist.length>1){lctx.beginPath();hist.forEach(function(v,i){var x=padL+i/119*iw,y=Y(v);if(i)lctx.lineTo(x,y);else lctx.moveTo(x,y);});
+  lctx.strokeStyle=getVar('--green','#2F8B4E');lctx.lineWidth=3;lctx.lineJoin='round';lctx.stroke();
+  lctx.lineTo(padL+(hist.length-1)/119*iw,Y(0));lctx.lineTo(padL,Y(0));lctx.closePath();lctx.fillStyle='rgba(58,160,92,.16)';lctx.fill();}}
+function sizeAll(){lctx=setupCanvas($('labChart'));drawLab();dctx=setupCanvas($('dayChart'));drawDay();sctx=setupCanvas($('specChart'));drawSpec();}
+window.addEventListener('resize',sizeAll);
 
-/* Hareket azaltma tercihi */
-if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  document.querySelectorAll('svg').forEach(s=>{if(s.pauseAnimations)s.pauseAnimations();});
-}
+/* ---------- Başlat ---------- */
+syncLab();
+sizeAll();
+setTime(12);
+updateSpec();
+leafInfo(2);
+navUpdate();
 </script>
 </body>
 </html>
